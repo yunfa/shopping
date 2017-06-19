@@ -11,35 +11,19 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.json.JSONObject;
-
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.shiro.cache.VCache;
 import com.sojson.core.shiro.session.ShiroSessionRepository;
 import com.sojson.core.shiro.token.manager.TokenManager;
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * 
- * 相同帐号登录控制
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年6月2日 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
- * @version 1.0,2016年6月2日 <br/>
- * 
+ * @author Li Yunfa
+ * @date 2017年6月19日
  */
 @SuppressWarnings({"unchecked","static-access"})
 public class KickoutSessionFilter extends AccessControlFilter {
@@ -150,7 +134,7 @@ public class KickoutSessionFilter extends AccessControlFilter {
 		try {
 			hresponse.setCharacterEncoding("UTF-8");
 			PrintWriter out = hresponse.getWriter();
-			out.println(JSONObject.fromObject(resultMap).toString());
+			out.println(JSONObject.toJSONString(resultMap).toString());
 			out.flush();
 			out.close();
 		} catch (Exception e) {

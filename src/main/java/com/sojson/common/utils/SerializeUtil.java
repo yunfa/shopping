@@ -7,33 +7,31 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
+ * 开发公司：SOJSON在线工具
  * <p>
- * 
+ * 版权所有：© www.sojson.com
+ * <p>
+ * 博客地址：http://www.sojson.com/blog/
+ * <p>
+ * <p>
  * Java原生版的 Serialize
- * 
  * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年6月2日 　<br/>
+ * 区分 责任人 日期 说明<br/>
+ * 创建 周柏成 2016年6月2日 <br/>
  *
  * @author zhou-baicheng
- * @email  so@sojson.com
+ * @email so@sojson.com
  * @version 1.0,2016年6月2日 <br/>
- * 
  */
 @SuppressWarnings("unchecked")
 public class SerializeUtil {
-	static final Class<?> CLAZZ = SerializeUtil.class;
-	
+    static final Class<?> CLAZZ = SerializeUtil.class;
+
     public static byte[] serialize(Object value) {
-        if (value == null) { 
+        if (value == null) {
             throw new NullPointerException("Can't serialize null");
         }
         byte[] rv = null;
@@ -47,7 +45,7 @@ public class SerializeUtil {
             bos.close();
             rv = bos.toByteArray();
         } catch (Exception e) {
-        	LoggerUtils.fmtError(CLAZZ,e, "serialize error %s", JSONObject.fromObject(value));
+            LoggerUtils.fmtError(CLAZZ, e, "serialize error %s", JSONObject.toJSON(value).toString());
         } finally {
             close(os);
             close(bos);
@@ -55,12 +53,11 @@ public class SerializeUtil {
         return rv;
     }
 
-    
-	public static Object deserialize(byte[] in) {
+    public static Object deserialize(byte[] in) {
         return deserialize(in, Object.class);
     }
 
-    public static <T> T deserialize(byte[] in, Class<T>...requiredType) {
+    public static <T> T deserialize(byte[] in, Class<T>... requiredType) {
         Object rv = null;
         ByteArrayInputStream bis = null;
         ObjectInputStream is = null;
@@ -71,7 +68,7 @@ public class SerializeUtil {
                 rv = is.readObject();
             }
         } catch (Exception e) {
-        	 LoggerUtils.fmtError(CLAZZ,e, "serialize error %s", in);
+            LoggerUtils.fmtError(CLAZZ, e, "serialize error %s", in);
         } finally {
             close(is);
             close(bis);
@@ -84,7 +81,7 @@ public class SerializeUtil {
             try {
                 closeable.close();
             } catch (IOException e) {
-            	 LoggerUtils.fmtError(CLAZZ, "close stream error");
+                LoggerUtils.fmtError(CLAZZ, "close stream error");
             }
     }
 
