@@ -9,9 +9,12 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年6月19日
  */
 public class UUserRole implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     /** {@link UUser.id} */
     private Long uid;
+
     /** {@link URole.id} */
     private Long rid;
 

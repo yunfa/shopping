@@ -10,11 +10,15 @@ import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.permission.bo.URoleBo;
 import com.sojson.permission.bo.UserRoleAllocationBo;
 
+/**
+ * @author Li Yunfa
+ * @date 2017年6月21日
+ */
 public interface UUserService {
 
-	int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Long id);
 
-	UUser insert(UUser record);
+    UUser insert(UUser record);
 
     UUser insertSelective(UUser record);
 
@@ -23,24 +27,22 @@ public interface UUserService {
     int updateByPrimaryKeySelective(UUser record);
 
     int updateByPrimaryKey(UUser record);
-    
-    UUser login(String email ,String pswd);
 
-	UUser findUserByEmail(String email);
+    UUser login(String email, String pswd);
 
-	Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo,
-			Integer pageSize);
+    UUser findUserByEmail(String email);
 
-	Map<String, Object> deleteUserById(String ids);
+    Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
 
-	Map<String, Object> updateForbidUserById(Long id, Long status);
+    Map<String, Object> deleteUserById(String ids);
 
-	Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap,
-			Integer pageNo, Integer pageSize);
+    Map<String, Object> updateForbidUserById(Long id, Long status);
 
-	List<URoleBo> selectRoleByUserId(Long id);
+    Pagination<UserRoleAllocationBo> findUserAndRole(ModelMap modelMap, Integer pageNo, Integer pageSize);
 
-	Map<String, Object> addRole2User(Long userId, String ids);
+    List<URoleBo> selectRoleByUserId(Long id);
 
-	Map<String, Object> deleteRoleByUserIds(String userIds);
+    Map<String, Object> addRole2User(Long userId, String ids);
+
+    Map<String, Object> deleteRoleByUserIds(String userIds);
 }

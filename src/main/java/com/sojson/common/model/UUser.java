@@ -7,8 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author Li Yunfa
- * @since 1.0
- * @date 2017年6月18日
+ * @date 2017年6月21日
  */
 public class UUser implements Serializable {
 

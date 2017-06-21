@@ -9,10 +9,14 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年6月19日
  */
 public class UPermission implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     private Long id;
+
     /** 操作的url */
     private String url;
+
     /** 操作的名称 */
     private String name;
 

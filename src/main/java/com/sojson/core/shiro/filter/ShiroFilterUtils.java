@@ -16,11 +16,15 @@ import com.sojson.common.utils.LoggerUtils;
  * @date 2017年6月19日
  */
 public class ShiroFilterUtils {
+
     final static Class<? extends ShiroFilterUtils> CLAZZ = ShiroFilterUtils.class;
+
     //登录页面
     static final String LOGIN_URL = "/u/login.shtml";
+
     //踢出登录提示
     final static String KICKED_OUT = "/open/kickedOut.shtml";
+
     //没有权限提醒
     final static String UNAUTHORIZED = "/open/unauthorized.shtml";
 

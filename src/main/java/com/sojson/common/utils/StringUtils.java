@@ -18,9 +18,8 @@ import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Decoder;
 
 /**
- * String工具 主要对 StringUtils 的一些方法进行重写,达到更方便的使用
- * 
- * @author zhou-baicheng
+ * @author Li Yunfa
+ * @date 2017年6月20日
  */
 public class StringUtils extends org.apache.commons.lang.StringUtils {
 
@@ -427,4 +426,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
         }
     }
 
+    public static void main(String[] args) {
+
+    }
 }

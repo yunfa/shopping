@@ -1,63 +1,70 @@
 package com.sojson.permission.bo;
 
 import java.io.Serializable;
+
 /**
  * 权限分配 查询列表BO
- * @author zhou-baicheng
- *
+ * 
+ * @author Li Yunfa
+ * @date 2017年6月21日
  */
 public class RolePermissionAllocationBo implements Serializable {
-	private static final long serialVersionUID = 1L;
-	//角色ID
-	private Long id;
-	//角色type
-	private String type;
-	//角色Name
-	private String name;
-	//权限Name列转行，以,分割
-	private String permissionNames;
-	//权限Id列转行，以‘,’分割
-	private String permissionIds;
 
-	public Long getId() {
-		return id;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    //角色ID
+    private Long id;
 
-	public String getName() {
-		return name;
-	}
+    //角色type
+    private String type;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    //角色Name
+    private String name;
 
-	public String getType() {
-		return type;
-	}
+    //权限Name列转行，以,分割
+    private String permissionNames;
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    //权限Id列转行，以‘,’分割
+    private String permissionIds;
 
-	public String getPermissionNames() {
-		return permissionNames;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPermissionNames(String permissionNames) {
-		this.permissionNames = permissionNames;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getPermissionIds() {
-		return permissionIds;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPermissionIds(String permissionIds) {
-		this.permissionIds = permissionIds;
-	}
-	
-	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPermissionNames() {
+        return permissionNames;
+    }
+
+    public void setPermissionNames(String permissionNames) {
+        this.permissionNames = permissionNames;
+    }
+
+    public String getPermissionIds() {
+        return permissionIds;
+    }
+
+    public void setPermissionIds(String permissionIds) {
+        this.permissionIds = permissionIds;
+    }
+
 }

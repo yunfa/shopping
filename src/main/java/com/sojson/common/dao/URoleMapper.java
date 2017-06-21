@@ -6,7 +6,12 @@ import java.util.Set;
 
 import com.sojson.common.model.URole;
 
+/**
+ * @author Li Yunfa
+ * @date 2017年6月21日
+ */
 public interface URoleMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(URole record);
@@ -19,9 +24,9 @@ public interface URoleMapper {
 
     int updateByPrimaryKey(URole record);
 
-	Set<String> findRoleByUserId(Long id);
+    Set<String> findRoleByUserId(Long id);
 
-	List<URole> findNowAllPermission(Map<String, Object> map);
-	
-	void initData();
+    List<URole> findNowAllPermission(Map<String, Object> map);
+
+    void initData();
 }

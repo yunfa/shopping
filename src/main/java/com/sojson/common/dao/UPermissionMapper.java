@@ -6,7 +6,12 @@ import java.util.Set;
 import com.sojson.common.model.UPermission;
 import com.sojson.permission.bo.UPermissionBo;
 
+/**
+ * @author Li Yunfa
+ * @date 2017年6月21日
+ */
 public interface UPermissionMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(UPermission record);
@@ -19,7 +24,8 @@ public interface UPermissionMapper {
 
     int updateByPrimaryKey(UPermission record);
 
-	List<UPermissionBo> selectPermissionById(Long id);
-	//根据用户ID获取权限的Set集合
-	Set<String> findPermissionByUserId(Long id);
+    List<UPermissionBo> selectPermissionById(Long id);
+
+    //根据用户ID获取权限的Set集合
+    Set<String> findPermissionByUserId(Long id);
 }

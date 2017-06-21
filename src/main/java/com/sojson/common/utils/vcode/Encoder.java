@@ -1,19 +1,24 @@
 package com.sojson.common.utils.vcode;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @author: wuhongjun
- * @version:1.0
+ * @author Li Yunfa
+ * @date 2017年6月21日
  */
-public class Encoder
-{
+public class Encoder {
+
     private static final int EOF = -1;
 
     private int imgW, imgH;
+
     private byte[] pixAry;
+
     private int initCodeSize;
+
     private int remaining;
+
     private int curPixel;
 
     // GIFCOMPR.C       - GIF Image compression routines
@@ -39,11 +44,15 @@ public class Encoder
     //              Joe Orost              (decvax!vax135!petsd!joe)
 
     int n_bits; // number of bits/code
+
     int maxbits = BITS; // user settable max # bits/code
+
     int maxcode; // maximum code, given n_bits
+
     int maxmaxcode = 1 << BITS; // should NEVER generate this code
 
     int[] htab = new int[HSIZE];
+
     int[] codetab = new int[HSIZE];
 
     int hsize = HSIZE; // for dynamic table sizing
@@ -69,6 +78,7 @@ public class Encoder
     int g_init_bits;
 
     int ClearCode;
+
     int EOFCode;
 
     // output
@@ -87,27 +97,11 @@ public class Encoder
     // code in turn.  When the buffer fills up empty it and start over.
 
     int cur_accum = 0;
+
     int cur_bits = 0;
 
-    int masks[] =
-            {
-                    0x0000,
-                    0x0001,
-                    0x0003,
-                    0x0007,
-                    0x000F,
-                    0x001F,
-                    0x003F,
-                    0x007F,
-                    0x00FF,
-                    0x01FF,
-                    0x03FF,
-                    0x07FF,
-                    0x0FFF,
-                    0x1FFF,
-                    0x3FFF,
-                    0x7FFF,
-                    0xFFFF };
+    int masks[] = { 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF,
+            0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF };
 
     // Number of characters so far in this 'packet'
     int a_count;
@@ -183,7 +177,7 @@ public class Encoder
 
         output(ClearCode, outs);
 
-        outer_loop : while ((c = nextPixel()) != EOF) {
+        outer_loop: while ((c = nextPixel()) != EOF) {
             fcode = (c << maxbits) + ent;
             i = (c << hshift) ^ ent; // xor hashing
 

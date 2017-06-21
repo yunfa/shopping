@@ -9,29 +9,25 @@ import org.springframework.stereotype.Component;
 
 import com.sojson.permission.service.RoleService;
 
-
 /**
  * 定时任务恢复数据
- *
+ * 
+ * @author Li Yunfa
+ * @date 2017年6月21日
  */
 @Component
-public class ToTimer{
-	
-	@Resource
-	RoleService roleService;
-	@Scheduled(cron = "0/20 * * * * ? ")
-	public void run() {
-		/**
-		 * 调用存储过程，重新创建表，插入初始化数据。
-		 */
-		roleService.initData();
-		System.out.println(new Date().getTime());
-	}
+public class ToTimer {
 
-	
-	
-	
-	
-	
-	
+    @Resource
+    RoleService roleService;
+
+    @Scheduled(cron = "0/20 * * * * ? ")
+    public void run() {
+        /**
+         * 调用存储过程，重新创建表，插入初始化数据。
+         */
+        roleService.initData();
+        System.out.println(new Date().getTime());
+    }
+
 }

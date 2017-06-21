@@ -42,7 +42,6 @@
 		<property name="cookie" ref="rememberMeCookie" />
 	</bean>
 
-
 	<!-- custom shiro session listener -->
 	<bean id="customShiroSessionDAO" class="com.sojson.core.shiro.CustomShiroSessionDAO">
 		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />
@@ -134,7 +133,6 @@
 	<bean id="role" class="com.sojson.core.shiro.filter.RoleFilter" />
 	<bean id="permission" class="com.sojson.core.shiro.filter.PermissionFilter" />
 	<bean id="simple" class="com.sojson.core.shiro.filter.SimpleAuthFilter" />
-
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
