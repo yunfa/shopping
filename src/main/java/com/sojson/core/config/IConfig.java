@@ -3,13 +3,18 @@ package com.sojson.core.config;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.sojson.common.utils.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.sojson.common.utils.StringUtils;
 
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
 public class IConfig {
+
+    private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
     /**
      * 同步锁
@@ -36,7 +41,7 @@ public class IConfig {
         try {
             prop.load(IConfig.class.getResourceAsStream(FILE_NAME));
         } catch (IOException e) {
-            LoggerUtils.fmtError(IConfig.class, e, "加载文件异常，文件路径：%s", FILE_NAME);
+            logger.error("加载文件异常，文件路径：{}", FILE_NAME, e);
         }
 
     }

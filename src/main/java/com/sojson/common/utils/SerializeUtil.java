@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -16,7 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 @SuppressWarnings("unchecked")
 public class SerializeUtil {
 
-    static final Class<?> CLAZZ = SerializeUtil.class;
+    private static Logger logger = LoggerFactory.getLogger(SerializeUtil.class);
 
     public static byte[] serialize(Object value) {
         if (value == null) {
@@ -33,7 +36,7 @@ public class SerializeUtil {
             bos.close();
             rv = bos.toByteArray();
         } catch (Exception e) {
-            LoggerUtils.fmtError(CLAZZ, e, "serialize error %s", JSONObject.toJSON(value).toString());
+            logger.error("serialize error,values={}", JSONObject.toJSON(value).toString(), e);
         } finally {
             close(os);
             close(bos);
@@ -56,7 +59,7 @@ public class SerializeUtil {
                 rv = is.readObject();
             }
         } catch (Exception e) {
-            LoggerUtils.fmtError(CLAZZ, e, "serialize error %s", in);
+            logger.error("serialize error", e);
         } finally {
             close(is);
             close(bis);
@@ -69,7 +72,7 @@ public class SerializeUtil {
             try {
                 closeable.close();
             } catch (IOException e) {
-                LoggerUtils.fmtError(CLAZZ, "close stream error");
+                logger.error("close stream error");
             }
     }
 

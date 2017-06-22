@@ -5,8 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.shiro.session.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.SerializeUtil;
 import com.sojson.common.utils.StringUtils;
 
@@ -21,6 +22,8 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
  * @date 2017年6月18日
  */
 public class JedisManager {
+
+    private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
     private JedisPool jedisPool;
 
@@ -71,7 +74,7 @@ public class JedisManager {
             jedis = getJedis();
             jedis.select(dbIndex);
             Long result = jedis.del(key);
-            LoggerUtils.fmtDebug(getClass(), "删除Session结果：%s", result);
+            logger.debug("删除Session结果：{}", result);
         } catch (Exception e) {
             isBroken = true;
             throw e;

@@ -9,14 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.core.mybatis.page.MysqlDialect;
 import com.sojson.core.mybatis.page.Pagination;
@@ -30,9 +29,9 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 
     private String NAMESPACE;
 
-    final static Class<? extends Object> SELF = BaseMybatisDao.class;
+    private final static Class<? extends Object> SELF = BaseMybatisDao.class;
 
-    protected final Log logger = LogFactory.getLog(BaseMybatisDao.class);
+    private static Logger logger = LoggerFactory.getLogger(BaseMybatisDao.class);
 
     /** 默认的查询Sql id */
     final static String DEFAULT_SQL_ID = "findAll";
@@ -48,7 +47,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
                 NAMESPACE = entityClass.getPackage().getName() + "." + entityClass.getSimpleName();
             }
         } catch (RuntimeException e) {
-            LoggerUtils.error(SELF, "初始化失败，继承BaseMybatisDao，没有泛型！");
+            logger.error("初始化失败，继承BaseMybatisDao，没有泛型！");
         }
     }
 
@@ -79,7 +78,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
         BoundSql boundSql = c.getMappedStatement(sqlId).getBoundSql(params);
         String sqlcode = boundSql.getSql();
 
-        LoggerUtils.fmtDebug(SELF, "findByPageBySqlId sql : %s", sqlcode);
+        logger.debug("findByPageBySqlId sql : {}", sqlcode);
         String countCode = "", countId = "";
         BoundSql countSql = null;
         /**
@@ -93,7 +92,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 
             Map<String, Object> countMap = new HashMap<String, Object>();
             countMap.putAll(params);
-            countMap.remove("page_sql");//去掉，分页的参数。
+            countMap.remove("page_sql");// 去掉，分页的参数。
             countSql = c.getMappedStatement(countId).getBoundSql(countMap);
             countCode = countSql.getSql();
         }
@@ -110,7 +109,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
                 page.setTotalCount(set.getInt(1));
             }
         } catch (Exception e) {
-            LoggerUtils.error(SELF, "jdbc.error.code.findByPageBySqlId", e);
+            logger.error("jdbc.error.code.findByPageBySqlId", e);
         }
         return page;
     }
@@ -177,7 +176,6 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 
         BoundSql boundSql = c.getMappedStatement(sqlId).getBoundSql(params);
         String sqlcode = boundSql.getSql();
-        LoggerUtils.fmtDebug(SELF, "findPage sql : %s", sqlcode);
         String countCode = "";
         BoundSql countSql = null;
         if (StringUtils.isBlank(countId)) {
@@ -206,7 +204,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
                 page.setTotalCount(set.getInt(1));
             }
         } catch (Exception e) {
-            LoggerUtils.error(SELF, "jdbc.error.code.findByPageBySqlId", e);
+            logger.error("jdbc.error.code.findByPageBySqlId", e);
         }
         return page;
 

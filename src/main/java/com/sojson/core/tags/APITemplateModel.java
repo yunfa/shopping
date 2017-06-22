@@ -5,7 +5,9 @@ import static freemarker.template.ObjectWrapper.DEFAULT_WRAPPER;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sojson.common.utils.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sojson.common.utils.SpringContextUtil;
 import com.sojson.core.statics.Constant;
 
@@ -17,6 +19,8 @@ import freemarker.template.TemplateModelException;
  * @date 2017年6月21日
  */
 public class APITemplateModel extends WYFTemplateModel {
+
+    private static Logger logger = LoggerFactory.getLogger(APITemplateModel.class);
 
     @Override
     @SuppressWarnings({ "unchecked" })
@@ -31,13 +35,13 @@ public class APITemplateModel extends WYFTemplateModel {
              * 获取子类，用父类接收，
              */
             SuperCustomTag tag = SpringContextUtil.getBean(name, SuperCustomTag.class);
-            //父类调用子类方法
+            // 父类调用子类方法
             Object result = tag.result(params);
 
-            //输出
+            // 输出
             paramWrap.put(Constant.OUT_TAG_NAME, DEFAULT_WRAPPER.wrap(result));
         } else {
-            LoggerUtils.error(getClass(), "Cannot be null, must include a 'name' attribute!");
+            logger.error("Cannot be null, must include a 'name' attribute!");
         }
         return paramWrap;
     }

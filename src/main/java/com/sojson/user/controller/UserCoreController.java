@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.user.manager.UserManager;
 import com.sojson.user.service.UUserService;
@@ -30,6 +31,8 @@ import com.sojson.user.service.UUserService;
 @Scope(value = "prototype")
 @RequestMapping("user")
 public class UserCoreController extends BaseController {
+
+    private static Logger logger = LoggerFactory.getLogger(UserCoreController.class);
 
     @Resource
     UUserService userService;
@@ -107,7 +110,7 @@ public class UserCoreController extends BaseController {
         } catch (Exception e) {
             resultMap.put("status", 500);
             resultMap.put("message", "修改失败!");
-            LoggerUtils.fmtError(getClass(), e, "修改个人资料出错。[%s]", JSONObject.toJSONString(entity).toString());
+            logger.error("修改个人资料出错。{}", JSONObject.toJSONString(entity).toString(), e);
         }
         return resultMap;
     }

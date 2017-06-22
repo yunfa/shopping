@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ import com.sojson.common.dao.URoleMapper;
 import com.sojson.common.dao.URolePermissionMapper;
 import com.sojson.common.dao.UUserMapper;
 import com.sojson.common.model.URole;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.core.shiro.token.manager.TokenManager;
@@ -27,6 +28,8 @@ import com.sojson.permission.service.RoleService;
 @Service
 @SuppressWarnings("unchecked")
 public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements RoleService {
+
+    private static Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Autowired
     URoleMapper roleMapper;
@@ -104,7 +107,7 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
             resultMap.put("count", count);
             resultMap.put("resultMsg", resultMsg);
         } catch (Exception e) {
-            LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
+            logger.error("根据IDS删除用户出现错误，ids:{}", ids, e);
             resultMap.put("status", 500);
             resultMap.put("message", "删除出现错误，请刷新后再试！");
         }

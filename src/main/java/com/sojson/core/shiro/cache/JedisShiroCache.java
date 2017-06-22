@@ -5,8 +5,9 @@ import java.util.Set;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.SerializeUtil;
 
 /**
@@ -15,6 +16,8 @@ import com.sojson.common.utils.SerializeUtil;
  */
 @SuppressWarnings("unchecked")
 public class JedisShiroCache<K, V> implements Cache<K, V> {
+
+    private static Logger logger = LoggerFactory.getLogger(JedisShiroCache.class);
 
     /**
      * 为了不和其他的缓存混淆，采用追加前缀方式以作区分
@@ -57,7 +60,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
         try {
             byteValue = jedisManager.getValueByKey(DB_INDEX, byteKey);
         } catch (Exception e) {
-            LoggerUtils.error(SELF, "get value by cache throw exception", e);
+            logger.error("get value by cache throw exception", e);
         }
         return (V) SerializeUtil.deserialize(byteValue);
     }
@@ -69,7 +72,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
             jedisManager.saveValueByKey(DB_INDEX, SerializeUtil.serialize(buildCacheKey(key)),
                     SerializeUtil.serialize(value), -1);
         } catch (Exception e) {
-            LoggerUtils.error(SELF, "put cache throw exception", e);
+            logger.error("put cache throw exception", e);
         }
         return previos;
     }
@@ -80,14 +83,13 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
         try {
             jedisManager.deleteByKey(DB_INDEX, SerializeUtil.serialize(buildCacheKey(key)));
         } catch (Exception e) {
-            LoggerUtils.error(SELF, "remove cache  throw exception", e);
+            logger.error("remove cache  throw exception", e);
         }
         return previos;
     }
 
     @Override
     public void clear() throws CacheException {
-        //TODO--
     }
 
     @Override
@@ -99,13 +101,11 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
 
     @Override
     public Set<K> keys() {
-        //TODO
         return null;
     }
 
     @Override
     public Collection<V> values() {
-        //TODO
         return null;
     }
 

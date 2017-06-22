@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,6 @@ import com.sojson.common.dao.UUserMapper;
 import com.sojson.common.dao.UUserRoleMapper;
 import com.sojson.common.model.UPermission;
 import com.sojson.common.model.URolePermission;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
@@ -28,6 +29,8 @@ import com.sojson.permission.service.PermissionService;
  */
 @Service
 public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> implements PermissionService {
+
+    private static Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Autowired
     UPermissionMapper permissionMapper;
@@ -54,9 +57,9 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 
     @Override
     public UPermission insertSelective(UPermission record) {
-        //添加权限
+        // 添加权限
         permissionMapper.insertSelective(record);
-        //每添加一个权限，都往【系统管理员 	888888】里添加一次。保证系统管理员有最大的权限
+        // 每添加一个权限，都往【系统管理员 888888】里添加一次。保证系统管理员有最大的权限
         executePermission(new Long(1), String.valueOf(record.getId()));
         return record;
     }
@@ -100,7 +103,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
                 }
             }
             resultMap.put("status", 200);
-            //如果有成功的，也有失败的，提示清楚。
+            // 如果有成功的，也有失败的，提示清楚。
             if (errorCount > 0) {
                 resultMsg = String.format(resultMsg, successCount, errorCount);
             } else {
@@ -108,7 +111,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
             }
             resultMap.put("resultMsg", resultMsg);
         } catch (Exception e) {
-            LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
+            logger.error("根据IDS删除用户出现错误，ids:{}", ids, e);
             resultMap.put("status", 500);
             resultMap.put("message", "删除出现错误，请刷新后再试！");
         }
@@ -128,7 +131,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 
     @Override
     public Map<String, Object> addPermission2Role(Long roleId, String ids) {
-        //先删除原有的。
+        // 先删除原有的。
         rolePermissionMapper.deleteByRid(roleId);
         return executePermission(roleId, ids);
     }
@@ -144,19 +147,19 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
         Map<String, Object> resultMap = new HashMap<String, Object>();
         int count = 0;
         try {
-            //如果ids,permission 的id 有值，那么就添加。没值象征着：把这个角色（roleId）所有权限取消。
+            // 如果ids,permission 的id 有值，那么就添加。没值象征着：把这个角色（roleId）所有权限取消。
             if (StringUtils.isNotBlank(ids)) {
                 String[] idArray = null;
 
-                //这里有的人习惯，直接ids.split(",") 都可以，我习惯这么写。清楚明了。
+                // 这里有的人习惯，直接ids.split(",") 都可以，我习惯这么写。清楚明了。
                 if (StringUtils.contains(ids, ",")) {
                     idArray = ids.split(",");
                 } else {
                     idArray = new String[] { ids };
                 }
-                //添加新的。
+                // 添加新的。
                 for (String pid : idArray) {
-                    //这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的} 
+                    // 这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的}
                     if (StringUtils.isNotBlank(pid)) {
                         URolePermission entity = new URolePermission(roleId, new Long(pid));
                         count += rolePermissionMapper.insertSelective(entity);
@@ -169,7 +172,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
             resultMap.put("status", 200);
             resultMap.put("message", "操作失败，请重试！");
         }
-        //清空拥有角色Id为：roleId 的用户权限已加载数据，让权限数据重新加载
+        // 清空拥有角色Id为：roleId 的用户权限已加载数据，让权限数据重新加载
         List<Long> userIds = userRoleMapper.findUserIdByRoleId(roleId);
 
         TokenManager.clearUserAuthByUserId(userIds);

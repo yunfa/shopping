@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.common.utils.VerifyCodeUtils;
 import com.sojson.core.shiro.token.manager.TokenManager;
@@ -37,8 +38,10 @@ import com.sojson.user.service.UUserService;
 @RequestMapping("u")
 public class UserLoginController extends BaseController {
 
+    private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
+
     @Resource
-    UUserService userService;
+    private UUserService userService;
 
     /**
      * 登录跳转
@@ -47,7 +50,6 @@ public class UserLoginController extends BaseController {
      */
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login() {
-
         return new ModelAndView("user/login");
     }
 
@@ -58,7 +60,6 @@ public class UserLoginController extends BaseController {
      */
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public ModelAndView register() {
-
         return new ModelAndView("user/register");
     }
 
@@ -93,9 +94,9 @@ public class UserLoginController extends BaseController {
         entity.setStatus(UUser._1);
 
         entity = userService.insert(entity);
-        LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.toJSONString(entity).toString());
+        logger.debug("注册插入完毕！{}", JSONObject.toJSONString(entity).toString());
         entity = TokenManager.login(entity, Boolean.TRUE);
-        LoggerUtils.fmtDebug(getClass(), "注册后，登录完毕！", JSONObject.toJSONString(entity).toString());
+        logger.debug("注册后，登录完毕！{}", JSONObject.toJSONString(entity).toString());
         resultMap.put("message", "注册成功！");
         resultMap.put("status", 200);
         return resultMap;
@@ -112,7 +113,6 @@ public class UserLoginController extends BaseController {
     @RequestMapping(value = "submitLogin", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> submitLogin(UUser entity, Boolean rememberMe, HttpServletRequest request) {
-
         try {
             entity = TokenManager.login(entity, rememberMe);
             resultMap.put("status", 200);
@@ -127,18 +127,16 @@ public class UserLoginController extends BaseController {
                 url = savedRequest.getRequestUrl();
             }
             /**
-             * 我们平常用的获取上一个请求的方式，在Session不一致的情况下是获取不到的 String url = (String) request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
+             * 我们平常用的获取上一个请求的方式，在Session不一致的情况下是获取不到的 String url = (String)
+             * request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
              */
-            LoggerUtils.fmtDebug(getClass(), "获取登录之前的URL:[%s]", url);
+            logger.debug("获取登录之前的URL:{}", url);
             // 如果登录之前没有地址，那么就跳转到首页。
             if (StringUtils.isBlank(url)) {
                 url = request.getContextPath() + "/user/index.shtml";
             }
             // 跳转地址
             resultMap.put("back_url", url);
-            /**
-             * 这里其实可以直接catch Exception，然后抛出 message即可，但是最好还是各种明细catch 好点。。
-             */
         } catch (DisabledAccountException e) {
             resultMap.put("status", 500);
             resultMap.put("message", "帐号已经禁用。");
@@ -163,8 +161,7 @@ public class UserLoginController extends BaseController {
             resultMap.put("status", 200);
         } catch (Exception e) {
             resultMap.put("status", 500);
-            logger.error("errorMessage:" + e.getMessage());
-            LoggerUtils.fmtError(getClass(), e, "退出出现错误，%s。", e.getMessage());
+            logger.error("errorMessage", e);
         }
         return resultMap;
     }

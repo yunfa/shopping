@@ -12,6 +12,9 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -22,6 +25,8 @@ import sun.misc.BASE64Decoder;
  * @date 2017年6月20日
  */
 public class StringUtils extends org.apache.commons.lang.StringUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
     /**
      * 一次性判断多个或单个对象为空。
@@ -172,7 +177,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
         if (StringUtils.isBlank(str))
             return null;
         String base64 = new sun.misc.BASE64Encoder().encode(str.getBytes());
-        //去掉 '='
+        // 去掉 '='
         if (isBlank(bf) && bf[0]) {
             base64 = base64.replaceAll("=", "");
         }
@@ -222,7 +227,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
             return null;
         }
         args = args.trim();
-        //如果是?开头,把?去掉
+        // 如果是?开头,把?去掉
         if (args.startsWith("?")) {
             args = args.substring(1, args.length());
         }
@@ -233,7 +238,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
             if (!isBlank(ag) && ag.indexOf("=") > 0) {
 
                 String[] keyValue = ag.split("=");
-                //如果value或者key值里包含 "="号,以第一个"="号为主 ,如  name=0=3  转换后,{"name":"0=3"}, 如果不满足需求,请勿修改,自行解决.
+                // 如果value或者key值里包含 "="号,以第一个"="号为主 ,如 name=0=3 转换后,{"name":"0=3"}, 如果不满足需求,请勿修改,自行解决.
 
                 String key = keyValue[0];
                 String value = "";
@@ -295,8 +300,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
             value = java.net.URLEncoder.encode(value, "utf-8");
             return value;
         } catch (UnsupportedEncodingException e) {
-            LoggerUtils.error(StringUtils.class, "字符串转换为URLCode失败,value:" + value, e);
-            e.printStackTrace();
+            logger.error("字符串转换为URLCode失败,value:{}", value, e);
             return null;
         }
     }
@@ -312,7 +316,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
             value = java.net.URLDecoder.decode(value, "utf-8");
             return value;
         } catch (UnsupportedEncodingException e) {
-            LoggerUtils.error(StringUtils.class, "URLCode转换为字符串失败;value:" + value, e);
+            logger.error("URLCode转换为字符串失败;value:{}", value, e);
             e.printStackTrace();
             return null;
         }

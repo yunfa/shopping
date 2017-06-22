@@ -2,6 +2,8 @@ package com.sojson.permission.controller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UPermission;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.permission.service.PermissionService;
 
@@ -25,6 +26,8 @@ import com.sojson.permission.service.PermissionService;
 @Scope(value = "prototype")
 @RequestMapping("permission")
 public class PermissionController extends BaseController {
+
+    private static Logger logger = LoggerFactory.getLogger(PermissionController.class);
 
     @Autowired
     PermissionService permissionService;
@@ -60,7 +63,7 @@ public class PermissionController extends BaseController {
         } catch (Exception e) {
             resultMap.put("status", 500);
             resultMap.put("message", "添加失败，请刷新后再试！");
-            LoggerUtils.fmtError(getClass(), e, "添加权限报错。source[%s]", psermission.toString());
+            logger.error("添加权限报错。source:{}", psermission.toString(), e);
         }
         return resultMap;
     }

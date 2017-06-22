@@ -6,8 +6,9 @@ import java.util.Collection;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.shiro.session.ShiroSessionRepository;
 
 /**
@@ -15,6 +16,8 @@ import com.sojson.core.shiro.session.ShiroSessionRepository;
  * @date 2017年6月21日
  */
 public class CustomShiroSessionDAO extends AbstractSessionDAO {
+
+    private static Logger logger = LoggerFactory.getLogger(CustomShiroSessionDAO.class);
 
     private ShiroSessionRepository shiroSessionRepository;
 
@@ -34,7 +37,7 @@ public class CustomShiroSessionDAO extends AbstractSessionDAO {
     @Override
     public void delete(Session session) {
         if (session == null) {
-            LoggerUtils.error(getClass(), "Session 不能为null");
+            logger.error("Session 不能为null");
             return;
         }
         Serializable id = session.getId();

@@ -10,10 +10,11 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.config.INI4j;
 import com.sojson.core.shiro.service.ShiroManager;
 
@@ -22,6 +23,8 @@ import com.sojson.core.shiro.service.ShiroManager;
  * @date 2017年6月21日
  */
 public class ShiroManagerImpl implements ShiroManager {
+
+    private static Logger logger = LoggerFactory.getLogger(ShiroManagerImpl.class);
 
     // 注意/r/n前不能有空格
     private static final String CRLF = "\r\n";
@@ -33,7 +36,7 @@ public class ShiroManagerImpl implements ShiroManager {
     @Override
     public String loadFilterChainDefinitions() {
         StringBuffer sb = new StringBuffer();
-        sb.append(getFixedAuthRule());//固定权限，采用读取配置文件
+        sb.append(getFixedAuthRule());// 固定权限，采用读取配置文件
         return sb.toString();
     }
 
@@ -47,7 +50,7 @@ public class ShiroManagerImpl implements ShiroManager {
         try {
             ini = new INI4j(cp.getFile());
         } catch (IOException e) {
-            LoggerUtils.fmtError(getClass(), e, "加载文件出错。file:[%s]", fileName);
+            logger.error("加载文件出错。file:{}", fileName, e);
         }
         String section = "base_auth";
         Set<String> keys = ini.get(section).keySet();
@@ -64,12 +67,13 @@ public class ShiroManagerImpl implements ShiroManager {
     // 此方法加同步锁
     @Override
     public synchronized void reCreateFilterChains() {
-        //		ShiroFilterFactoryBean shiroFilterFactoryBean = (ShiroFilterFactoryBean) SpringContextUtil.getBean("shiroFilterFactoryBean");
+        // ShiroFilterFactoryBean shiroFilterFactoryBean = (ShiroFilterFactoryBean)
+        // SpringContextUtil.getBean("shiroFilterFactoryBean");
         AbstractShiroFilter shiroFilter = null;
         try {
             shiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
         } catch (Exception e) {
-            LoggerUtils.error(getClass(), "getShiroFilter from shiroFilterFactoryBean error!", e);
+            logger.error("getShiroFilter from shiroFilterFactoryBean error!", e);
             throw new RuntimeException("get ShiroFilter from shiroFilterFactoryBean error!");
         }
 

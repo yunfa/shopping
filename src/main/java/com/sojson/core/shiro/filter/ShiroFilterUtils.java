@@ -8,8 +8,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
-import com.sojson.common.utils.LoggerUtils;
 
 /**
  * @author Li Yunfa
@@ -17,15 +19,17 @@ import com.sojson.common.utils.LoggerUtils;
  */
 public class ShiroFilterUtils {
 
+    private static Logger logger = LoggerFactory.getLogger(ShiroFilterUtils.class);
+
     final static Class<? extends ShiroFilterUtils> CLAZZ = ShiroFilterUtils.class;
 
-    //登录页面
+    // 登录页面
     static final String LOGIN_URL = "/u/login.shtml";
 
-    //踢出登录提示
+    // 踢出登录提示
     final static String KICKED_OUT = "/open/kickedOut.shtml";
 
-    //没有权限提醒
+    // 没有权限提醒
     final static String UNAUTHORIZED = "/open/unauthorized.shtml";
 
     /**
@@ -52,7 +56,7 @@ public class ShiroFilterUtils {
             out = response.getWriter();
             out.println(JSONObject.toJSONString(resultMap).toString());
         } catch (Exception e) {
-            LoggerUtils.fmtError(CLAZZ, e, "输出JSON报错。");
+            logger.error("输出JSON报错。", e);
         } finally {
             if (null != out) {
                 out.flush();

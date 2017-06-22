@@ -12,7 +12,7 @@
           </button>
 	     </div>
 	     <div role="navigation" class="navbar-collapse collapse">
-	     		<a id="_logo"  href="${basePath}" style="color:#fff; font-size: 24px;" class="navbar-brand hidden-sm">SSM + Shiro Demo 演示</a>
+	     		<a id="_logo"  href="${basePath}" style="color:#fff; font-size: 24px;" class="navbar-brand hidden-sm"></a>
 	          <ul class="nav navbar-nav" id="topMenu">
 				<li class="dropdown ${(index==1)?string('active','')}">
 					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="${basePath}/user/index.shtml">
@@ -63,28 +63,13 @@
 						</ul>
 					</li>	
 				</@shiro.hasAnyRoles>    
-				<li>
-					<a class="dropdown-toggle" target="_blank" href="http://www.sojson.com/tag_shiro.html" target="_blank">
-						Shiro相关博客<span class="collapsing"></span>
-					</a>
-				</li>	          
-				<li>
-					<a class="dropdown-toggle" href="http://www.sojson.com/shiro" target="_blank">
-						本项目介绍<span class="collapsing"></span>
-					</a>
-				</li>	          
-				<li>
-					<a class="dropdown-toggle" href="http://www.sojson.com/jc/shiro.html" target="_blank">
-						Shiro Demo 其他版本<span class="collapsing"></span>
-					</a>
-				</li>	          
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">
 					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown"  
 						<@shiro.user>  
 							onclick="location.href='${basePath}/user/index.shtml'" href="${basePath}/user/index.shtml" class="dropdown-toggle qqlogin" >
-							${token.nickname?default('阿西吧')}<span class="caret"></span></a>
+							${token.nickname?default('alpha')}<span class="caret"></span></a>
 							<ul class="dropdown-menu" userid="${token.id}">
 								<li><a href="${basePath}/user/index.shtml">个人资料</a></li>
 								<li><a href="${basePath}/role/mypermission.shtml">我的权限</a></li>
@@ -92,7 +77,7 @@
 							</ul>
 						</@shiro.user>  
 						<@shiro.guest>   
-							 href="javascript:void(0);" onclick="location.href='${basePath}/u/login.shtml'" class="dropdown-toggle qqlogin" >
+							href="javascript:void(0);" onclick="location.href='${basePath}/u/login.shtml'" class="dropdown-toggle qqlogin" >
 							<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png">&nbsp;登录</a>
 						</@shiro.guest>  					
 				</li>	
