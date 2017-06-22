@@ -152,7 +152,7 @@ ul.cloud a:hover{border-radius:0;text-shadow:1px 1px 1px #000}
 .search-write-wrap .search-write-cont,.search-write-wrap .SMSearTxt{color:#56688a}
 .search-write-cont{background:rgba(0,0,0,0) none repeat scroll 0 0;border:0 none;float:left;font-family:"Microsoft YaHei";height:25px;line-height:25px;margin:6px 0 0 10px;outline:0 none;padding:0}
 .w464{width:464px}
-.quickdelete{background:#fff url("http://cdn.sojson.com/images/quickdelete.png") no-repeat scroll 7px 12px;display:none;height:32px;position:absolute;right:0;top:0;width:32px}
+.quickdelete{background:#fff url("http://cdn.alpha.com/images/quickdelete.png") no-repeat scroll 7px 12px;display:none;height:32px;position:absolute;right:0;top:0;width:32px}
 .search-hint,.search-hint02{color:#c0c1c4;font-family:"Microsoft YaHei";font-size:14px;font-weight:normal;left:13px;letter-spacing:normal;margin-top:10px;position:absolute;top:0;z-index:0}
 .search-write-right{width:90px}
 .search-write-btn{width:90px;line-height:normal;outline:medium none}
@@ -366,7 +366,7 @@ article.page .post-content h2 {
     margin-top: 10px !important;
 }
 /*.icon {
-    background-image: url("http://cdn.sojson.com/images/ticon.png");
+    background-image: url("http://cdn.alpha.com/images/ticon.png");
     background-repeat: no-repeat;
     display: inline-block;
     overflow: hidden;
@@ -433,4 +433,4 @@ div.fff .list-inline li {
 }
 /*右键 + top*/
 #m_right{margin: 0px; border: 0px none; padding: 0px;}
-.fixed{bottom:100px;height:auto;left:50%;margin-left:585px;overflow:hidden;padding:17px;position:fixed;width:62px}.fixed .top{display:block;height:32px;margin:0 auto 10px;overflow:hidden;width:32px;background-color:#2f87c1;font-size:34px;border-radius:2px;transition:all 1s ease 0s;margin-left:100px}.fixed .top  > i{color:white}.fixed a._ishow{transform:scale(1) rotate(-360deg) translate(0);margin-left:0px}.fixed .feeback{background:rgba(0,0,0,0) url("http://cdn.sojson.com/images/btn.png") repeat scroll 0 -365px;display:block;height:107px;margin:0 auto;overflow:hidden;text-indent:-999em;width:32px}	
+.fixed{bottom:100px;height:auto;left:50%;margin-left:585px;overflow:hidden;padding:17px;position:fixed;width:62px}.fixed .top{display:block;height:32px;margin:0 auto 10px;overflow:hidden;width:32px;background-color:#2f87c1;font-size:34px;border-radius:2px;transition:all 1s ease 0s;margin-left:100px}.fixed .top  > i{color:white}.fixed a._ishow{transform:scale(1) rotate(-360deg) translate(0);margin-left:0px}.fixed .feeback{background:rgba(0,0,0,0) url("http://cdn.alpha.com/images/btn.png") repeat scroll 0 -365px;display:block;height:107px;margin:0 auto;overflow:hidden;text-indent:-999em;width:32px}	

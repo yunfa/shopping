@@ -12,7 +12,7 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<!-- 自动扫描(自动注入) -->
-	<context:component-scan base-package="com.sojson.*.controller;com.sojson.*.*.controller" />
+	<context:component-scan base-package="com.alpha.*.controller;com.alpha.*.*.controller" />
 
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/images/**" location="/images/" />
@@ -21,9 +21,9 @@
 	<mvc:resources mapping="/js/**" location="/js/" />
 
 	<!-- 自动扫描 标签 -->
-	<context:component-scan base-package="com.sojson.*.*.tag;com.sojson.*.tag" />
-	<bean name="api" class="com.sojson.core.tags.APITemplateModel"></bean>
-	<bean name="springContextUtil" class="com.sojson.common.utils.SpringContextUtil" scope="singleton"></bean>
+	<context:component-scan base-package="com.alpha.*.*.tag;com.alpha.*.tag" />
+	<bean name="api" class="com.alpha.core.tags.APITemplateModel"></bean>
+	<bean name="springContextUtil" class="com.alpha.common.utils.SpringContextUtil" scope="singleton"></bean>
 
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven />
@@ -78,7 +78,7 @@
 	<!-- 视图解析器 -->
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass" value="com.sojson.core.freemarker.extend.FreeMarkerViewExtend" />
+		<property name="viewClass" value="com.alpha.core.freemarker.extend.FreeMarkerViewExtend" />
 		<!-- 把Freemarker 扩展一下，把相关属性加入进去。。。 -->
 		<property name="contentType" value="text/html; charset=utf-8" />
 		<property name="cache" value="true" />
@@ -93,7 +93,7 @@
 	</bean>
 
 	<!-- 配置freeMarker 拓展 -->
-	<bean id="freemarkerConfig" class="com.sojson.core.freemarker.extend.FreeMarkerConfigExtend">
+	<bean id="freemarkerConfig" class="com.alpha.core.freemarker.extend.FreeMarkerConfigExtend">
 		<property name="templateLoaderPath">
 			<value>/WEB-INF/ftl/</value>
 		</property>
