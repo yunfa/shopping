@@ -9,6 +9,7 @@ import java.math.BigInteger;
 public class Encry {
 
     private static final int RADIX = 16;
+
     private static final String SEED = "0933910847463829827159347601486730416058";
 
     public static final String encryptPassword(String password) {
@@ -38,6 +39,13 @@ public class Encry {
     }
 
     public static void main(String[] args) {
-        System.out.println("Encrypted " + encryptPassword("123456"));
+        // 123456
+        // Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c
+        // odsuser
+        // Encrypted 2be98afc86aa7f2e4cb16aa63cb81aac8
+        // Lls16888appuser
+        // Encrypted 2bed4c3bb5b91cadcf318be60cb81aac8
+        System.out.println("Encrypted " + encryptPassword("Lls16888appuser"));
+        System.out.println(decryptPassword("2bed4c3bb5b91cadcf318be60cb81aac8"));
     }
 }
