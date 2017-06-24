@@ -11,103 +11,97 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class UserBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // 0:禁止登录
-    public static final Long _0 = new Long(0);
+	private Long id;
 
-    // 1:有效
-    public static final Long _1 = new Long(1);
+	/** 昵称 */
+	private String nickname;
 
-    private Long id;
+	/** 邮箱 | 登录帐号 */
+	private String email;
 
-    /** 昵称 */
-    private String nickname;
+	/** 密码 */
+	private transient String pswd;
 
-    /** 邮箱 | 登录帐号 */
-    private String email;
+	/** 创建时间 */
+	private Date createTime;
 
-    /** 密码 */
-    private transient String pswd;
+	/** 最后登录时间 */
+	private Date lastLoginTime;
 
-    /** 创建时间 */
-    private Date createTime;
+	/** 1:有效，0:禁止登录 */
+	private Long status;
 
-    /** 最后登录时间 */
-    private Date lastLoginTime;
+	public UserBean() {
+	}
 
-    /** 1:有效，0:禁止登录 */
-    private Long status;
+	public UserBean(UserBean user) {
+		this.id = user.getId();
+		this.nickname = user.getNickname();
+		this.email = user.getEmail();
+		this.pswd = user.getPswd();
+		this.createTime = user.getCreateTime();
+		this.lastLoginTime = user.getLastLoginTime();
+	}
 
-    public UserBean() {
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public UserBean(UserBean user) {
-        this.id = user.getId();
-        this.nickname = user.getNickname();
-        this.email = user.getEmail();
-        this.pswd = user.getPswd();
-        this.createTime = user.getCreateTime();
-        this.lastLoginTime = user.getLastLoginTime();
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+	public Long getStatus() {
+		return status;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setStatus(Long status) {
+		this.status = status;
+	}
 
-    public Long getStatus() {
-        return status;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setStatus(Long status) {
-        this.status = status;
-    }
+	public String getPswd() {
+		return pswd;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setPswd(String pswd) {
+		this.pswd = pswd;
+	}
 
-    public String getPswd() {
-        return pswd;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public void setPswd(String pswd) {
-        this.pswd = pswd;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String toString() {
-        return JSONObject.toJSONString(this).toString();
-    }
+	public String toString() {
+		return JSONObject.toJSONString(this).toString();
+	}
 }

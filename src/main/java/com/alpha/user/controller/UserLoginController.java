@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.alpha.common.controller.BaseController;
 import com.alpha.common.model.UserBean;
+import com.alpha.common.utils.Const;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.common.utils.VerifyCodeUtils;
 import com.alpha.core.shiro.token.manager.TokenManager;
@@ -91,7 +92,7 @@ public class UserLoginController extends BaseController {
 		// 把密码md5
 		entity = UserManager.md5Pswd(entity);
 		// 设置有效
-		entity.setStatus(UserBean._1);
+		entity.setStatus(Const._1);
 
 		entity = userService.insert(entity);
 		logger.debug("注册插入完毕！{}", JSONObject.toJSONString(entity).toString());
