@@ -1,4 +1,4 @@
-package com.alpha.core.freemarker.utils;
+package com.alpha.common.utils;
 
 import java.util.HashMap;
 import java.util.Map;

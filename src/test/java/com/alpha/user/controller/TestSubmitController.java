@@ -23,11 +23,11 @@ import com.alpha.user.bo.SubmitDto;
 @Controller
 @Scope(value = "prototype")
 @RequestMapping("demo")
-public class DemoTestSubmitController extends BaseController {
+public class TestSubmitController extends BaseController {
 
-    final static String OUT_MAP = DemoTestSubmitController.class.getCanonicalName() + "_outMap";
+    final static String OUT_MAP = TestSubmitController.class.getCanonicalName() + "_outMap";
 
-    final static String URL_PART = DemoTestSubmitController.class.getCanonicalName() + "_url";
+    final static String URL_PART = TestSubmitController.class.getCanonicalName() + "_url";
 
     @RequestMapping(value = "index")
     public ModelAndView list(ModelMap map, HttpServletRequest request) {

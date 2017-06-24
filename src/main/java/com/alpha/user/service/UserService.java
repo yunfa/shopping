@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.ui.ModelMap;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.permission.bo.URoleBo;
 import com.alpha.permission.bo.UserRoleAllocationBo;
@@ -14,25 +14,25 @@ import com.alpha.permission.bo.UserRoleAllocationBo;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public interface UUserService {
+public interface UserService {
 
     int deleteByPrimaryKey(Long id);
 
-    UUser insert(UUser record);
+    UserBean insert(UserBean record);
 
-    UUser insertSelective(UUser record);
+    UserBean insertSelective(UserBean record);
 
-    UUser selectByPrimaryKey(Long id);
+    UserBean selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(UUser record);
+    int updateByPrimaryKeySelective(UserBean record);
 
-    int updateByPrimaryKey(UUser record);
+    int updateByPrimaryKey(UserBean record);
 
-    UUser login(String email, String pswd);
+    UserBean login(String email, String pswd);
 
-    UUser findUserByEmail(String email);
+    UserBean findUserByEmail(String email);
 
-    Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
+    Pagination<UserBean> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
 
     Map<String, Object> deleteUserById(String ids);
 

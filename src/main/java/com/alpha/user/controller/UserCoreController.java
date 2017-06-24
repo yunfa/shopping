@@ -16,10 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alpha.common.controller.BaseController;
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.core.shiro.token.manager.TokenManager;
 import com.alpha.user.manager.UserManager;
-import com.alpha.user.service.UUserService;
+import com.alpha.user.service.UserService;
 
 /**
  * 用户Controller
@@ -35,7 +35,7 @@ public class UserCoreController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(UserCoreController.class);
 
     @Resource
-    UUserService userService;
+    UserService userService;
 
     /**
      * 个人资料
@@ -70,7 +70,7 @@ public class UserCoreController extends BaseController {
         // 根据当前登录的用户帐号 + 老密码，查询。
         String email = TokenManager.getToken().getEmail();
         pswd = UserManager.md5Pswd(email, pswd);
-        UUser user = userService.login(email, pswd);
+        UserBean user = userService.login(email, pswd);
 
         if ("admin".equals(email)) {
             resultMap.put("status", 300);
@@ -102,7 +102,7 @@ public class UserCoreController extends BaseController {
      */
     @RequestMapping(value = "updateSelf", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> updateSelf(UUser entity) {
+    public Map<String, Object> updateSelf(UserBean entity) {
         try {
             userService.updateByPrimaryKeySelective(entity);
             resultMap.put("status", 200);

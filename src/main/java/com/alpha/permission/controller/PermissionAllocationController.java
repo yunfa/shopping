@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alpha.common.controller.BaseController;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.permission.bo.RolePermissionAllocationBo;
-import com.alpha.permission.bo.UPermissionBo;
+import com.alpha.permission.bo.PermissionBo;
 import com.alpha.permission.service.PermissionService;
 import com.alpha.permission.service.RoleService;
 
@@ -58,8 +58,8 @@ public class PermissionAllocationController extends BaseController {
      */
     @RequestMapping(value = "selectPermissionById")
     @ResponseBody
-    public List<UPermissionBo> selectPermissionById(Long id) {
-        List<UPermissionBo> permissionBos = permissionService.selectPermissionById(id);
+    public List<PermissionBo> selectPermissionById(Long id) {
+        List<PermissionBo> permissionBos = permissionService.selectPermissionById(id);
         return permissionBos;
     }
 

@@ -2,7 +2,7 @@ package com.alpha.permission.bo;
 
 import java.io.Serializable;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 
 /**
  * 用户角色分配 查询列表BO
@@ -10,7 +10,7 @@ import com.alpha.common.model.UUser;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class UserRoleAllocationBo extends UUser implements Serializable {
+public class UserRoleAllocationBo extends UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

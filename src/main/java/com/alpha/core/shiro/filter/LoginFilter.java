@@ -10,7 +10,7 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.core.shiro.token.manager.TokenManager;
 
@@ -28,7 +28,7 @@ public class LoginFilter extends AccessControlFilter {
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
 
-        UUser token = TokenManager.getToken();
+        UserBean token = TokenManager.getToken();
 
         if (null != token || isLoginRequest(request, response)) {// && isEnabled()
             return Boolean.TRUE;

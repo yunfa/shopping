@@ -17,11 +17,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.core.shiro.token.manager.TokenManager;
 import com.alpha.permission.service.PermissionService;
 import com.alpha.permission.service.RoleService;
-import com.alpha.user.service.UUserService;
+import com.alpha.user.service.UserService;
 
 /**
  * @author Li Yunfa
@@ -30,7 +30,7 @@ import com.alpha.user.service.UUserService;
 public class SampleRealm extends AuthorizingRealm {
 
     @Autowired
-    private UUserService userService;
+    private UserService userService;
 
     @Autowired
     private PermissionService permissionService;
@@ -48,13 +48,13 @@ public class SampleRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
         ShiroToken token = (ShiroToken) authcToken;
-        UUser user = userService.login(token.getUsername(), token.getPswd());
+        UserBean user = userService.login(token.getUsername(), token.getPswd());
         if (null == user) {
             throw new AccountException("帐号或密码不正确！");
             /**
              * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
              */
-        } else if (UUser._0.equals(user.getStatus())) {
+        } else if (UserBean._0.equals(user.getStatus())) {
             throw new DisabledAccountException("帐号已经禁止登录！");
         } else {
             //更新登录时间 last login time

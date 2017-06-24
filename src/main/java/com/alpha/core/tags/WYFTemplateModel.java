@@ -3,7 +3,7 @@ package com.alpha.core.tags;
 import java.io.IOException;
 import java.util.Map;
 
-import com.alpha.core.freemarker.utils.FreemarkerTagUtil;
+import com.alpha.common.utils.FreemarkerTagUtil;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

@@ -6,24 +6,32 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author Li Yunfa
- * @date 2017年6月21日
+ * @date 2017年6月19日
  */
-public class URolePermission implements Serializable {
+public class UserRoleBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** {@link URole.id} */
+    /** {@link UserBean.id} */
+    private Long uid;
+
+    /** {@link RoleBean.id} */
     private Long rid;
 
-    /** {@link UPermission.id} */
-    private Long pid;
-
-    public URolePermission() {
+    public UserRoleBean(Long uid, Long rid) {
+        this.uid = uid;
+        this.rid = rid;
     }
 
-    public URolePermission(Long rid, Long pid) {
-        this.rid = rid;
-        this.pid = pid;
+    public UserRoleBean() {
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public Long getRid() {
@@ -32,14 +40,6 @@ public class URolePermission implements Serializable {
 
     public void setRid(Long rid) {
         this.rid = rid;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
     }
 
     public String toString() {

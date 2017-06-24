@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alpha.common.controller.BaseController;
-import com.alpha.common.model.UPermission;
+import com.alpha.common.model.PermissionBean;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.permission.service.PermissionService;
 
@@ -43,7 +43,7 @@ public class PermissionController extends BaseController {
     @RequestMapping(value = "index")
     public ModelAndView index(String findContent, ModelMap modelMap, Integer pageNo) {
         modelMap.put("findContent", findContent);
-        Pagination<UPermission> permissions = permissionService.findPage(modelMap, pageNo, pageSize);
+        Pagination<PermissionBean> permissions = permissionService.findPage(modelMap, pageNo, pageSize);
         return new ModelAndView("permission/index", "page", permissions);
     }
 
@@ -55,9 +55,9 @@ public class PermissionController extends BaseController {
      */
     @RequestMapping(value = "addPermission", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addPermission(UPermission psermission) {
+    public Map<String, Object> addPermission(PermissionBean psermission) {
         try {
-            UPermission entity = permissionService.insertSelective(psermission);
+            PermissionBean entity = permissionService.insertSelective(psermission);
             resultMap.put("status", 200);
             resultMap.put("entity", entity);
         } catch (Exception e) {

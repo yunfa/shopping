@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class UUser implements Serializable {
+public class UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,10 +39,10 @@ public class UUser implements Serializable {
     /** 1:有效，0:禁止登录 */
     private Long status;
 
-    public UUser() {
+    public UserBean() {
     }
 
-    public UUser(UUser user) {
+    public UserBean(UserBean user) {
         this.id = user.getId();
         this.nickname = user.getNickname();
         this.email = user.getEmail();

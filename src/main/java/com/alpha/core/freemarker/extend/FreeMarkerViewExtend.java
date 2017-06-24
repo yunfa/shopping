@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.core.shiro.token.manager.TokenManager;
 import com.alpha.core.statics.Constant;
@@ -31,7 +31,7 @@ public class FreeMarkerViewExtend extends FreeMarkerView {
         }
         model.put(Constant.CONTEXT_PATH, request.getContextPath());
         model.putAll(Ferrmarker.initMap);
-        UUser token = TokenManager.getToken();
+        UserBean token = TokenManager.getToken();
         // String ip = IPUtils.getIP(request);
         model.put("token", token);// 登录的token
         model.put("_time", new Date().getTime());

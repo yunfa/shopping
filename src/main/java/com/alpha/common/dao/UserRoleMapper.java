@@ -3,17 +3,17 @@ package com.alpha.common.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.alpha.common.model.UUserRole;
+import com.alpha.common.model.UserRoleBean;
 
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public interface UUserRoleMapper {
+public interface UserRoleMapper {
 
-    int insert(UUserRole record);
+    int insert(UserRoleBean record);
 
-    int insertSelective(UUserRole record);
+    int insertSelective(UserRoleBean record);
 
     int deleteByUserId(Long id);
 

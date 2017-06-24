@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alpha.common.dao.UPermissionMapper">
-	<resultMap id="BaseResultMap" type="com.alpha.common.model.UPermission">
+<mapper namespace="com.alpha.common.dao.PermissionMapper">
+	<resultMap id="BaseResultMap" type="com.alpha.common.model.PermissionBean">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="url" property="url" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, url, name
 	</sql>
@@ -20,9 +21,8 @@
 		<where>
 			<if test="findContent != null and findContent !='' ">
 				and (
-				LOWER(name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
-				LOWER(url) like
-				CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+					LOWER(name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+					LOWER(url) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
 				)
 			</if>
 		</where>
@@ -41,24 +41,19 @@
 		<include refid="where_all" />
 	</select>
 
-	<!-- 根据角色获取权限，marker:0,没有权限，marker：非0(和up.id)一致表示有权限。 com.alpha.permission.bo.UPermissionBo中的这个方法是校验权限 public boolean isCheck(){ 
+	<!-- 根据角色获取权限，marker:0,没有权限，marker：非0(和up.id)一致表示有权限。 com.alpha.permission.bo.PermissionBo中的这个方法是校验权限 public boolean isCheck(){ 
 		return StringUtils.equals(roleId,marker); } -->
-	<select id="selectPermissionById" resultType="com.alpha.permission.bo.UPermissionBo">
-		<!--原来的语句，应该是没错误。 有同学说有错误，请给出mysql版本号。 但是发现一个问题（我没尝试），在mysql 5.7版本中，没有结果集。故做了一下修改。 select up.id,ur.id roleId,up.name,up.url,ifnull(ur.id,0)marker 
-			from u_permission up left join u_role_permission urp on urp.pid = up.id left join (select id from u_role where id = #{id,jdbcType=BIGINT}) 
-			ur on ur.id = urp.rid group by up.id -->
-		select up.id,ur.id roleId,up.name,up.url,min(ifnull(ur.id,0))marker from u_permission up
-		left join u_role_permission
-		urp on urp.pid = up.id
+	<select id="selectPermissionById" resultType="com.alpha.permission.bo.PermissionBo">
+		select up.id,ur.id roleId,up.name,up.url,min(ifnull(ur.id,0))marker 
+		from u_permission up left join u_role_permission urp on urp.pid = up.id
 		left join (select id from u_role where id = #{id,jdbcType=BIGINT}) ur on ur.id = urp.rid
-		group by
-		up.id
+		group by up.id
 	</select>
 
 	<!-- 根据用ID查询permission -->
 	<select id="findPermissionByUserId" resultType="java.lang.String">
-		select p.url from u_permission p , u_role_permission rp,
-		u_user_role ur
+		select p.url 
+		from u_permission p , u_role_permission rp, u_user_role ur
 		where uid =#{id,jdbcType=BIGINT} and p.id = rp.pid and rp.rid = ur.rid
 	</select>
 
@@ -74,13 +69,12 @@
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.UPermission">
-		insert into u_permission (id, url,
-		name)
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.PermissionBean">
+		insert into u_permission (id, url, name)
 		values (#{id,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
 	</insert>
 
-	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.UPermission">
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.PermissionBean">
 		insert into u_permission
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -106,7 +100,7 @@
 		</trim>
 	</insert>
 
-	<update id="updateByPrimaryKeySelective" parameterType="com.alpha.common.model.UPermission">
+	<update id="updateByPrimaryKeySelective" parameterType="com.alpha.common.model.PermissionBean">
 		update u_permission
 		<set>
 			<if test="url != null">
@@ -119,10 +113,9 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
-	<update id="updateByPrimaryKey" parameterType="com.alpha.common.model.UPermission">
+	<update id="updateByPrimaryKey" parameterType="com.alpha.common.model.PermissionBean">
 		update u_permission
-		set url = #{url,jdbcType=VARCHAR},
-		name = #{name,jdbcType=VARCHAR}
+		set url = #{url,jdbcType=VARCHAR}, name = #{name,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

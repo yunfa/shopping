@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author Li Yunfa
  * @date 2017年6月19日
  */
-public class UPermission implements Serializable {
+public class PermissionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

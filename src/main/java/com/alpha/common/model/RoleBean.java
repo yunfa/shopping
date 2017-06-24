@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class URole implements Serializable {
+public class RoleBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class URole implements Serializable {
     private String type;
 
     //***做 role --> permission 一对多处理
-    private List<UPermission> permissions = new LinkedList<UPermission>();
+    private List<PermissionBean> permissions = new LinkedList<PermissionBean>();
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class URole implements Serializable {
         return type;
     }
 
-    public List<UPermission> getPermissions() {
+    public List<PermissionBean> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<UPermission> permissions) {
+    public void setPermissions(List<PermissionBean> permissions) {
         this.permissions = permissions;
     }
 

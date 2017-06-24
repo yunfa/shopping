@@ -14,10 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.core.shiro.CustomShiroSessionDAO;
-import com.alpha.user.bo.UserOnlineBo;
+import com.alpha.user.bo.UserOnlineDto;
 
 /**
  * @author Li Yunfa
@@ -43,13 +43,13 @@ public class CustomSessionManager {
      * 
      * @return
      */
-    public List<UserOnlineBo> getAllUser() {
+    public List<UserOnlineDto> getAllUser() {
         // 获取所有session
         Collection<Session> sessions = customShiroSessionDAO.getActiveSessions();
-        List<UserOnlineBo> list = new ArrayList<UserOnlineBo>();
+        List<UserOnlineDto> list = new ArrayList<UserOnlineDto>();
 
         for (Session session : sessions) {
-            UserOnlineBo bo = getSessionBo(session);
+            UserOnlineDto bo = getSessionBo(session);
             if (null != bo) {
                 list.add(bo);
             }
@@ -79,8 +79,8 @@ public class CustomSessionManager {
                 SimplePrincipalCollection spc = (SimplePrincipalCollection) obj;
                 // 判断用户，匹配用户ID。
                 obj = spc.getPrimaryPrincipal();
-                if (null != obj && obj instanceof UUser) {
-                    UUser user = (UUser) obj;
+                if (null != obj && obj instanceof UserBean) {
+                    UserBean user = (UserBean) obj;
                     // 比较用户ID，符合即加入集合
                     if (null != user && idset.contains(user.getId())) {
                         list.add(spc);
@@ -97,13 +97,13 @@ public class CustomSessionManager {
      * @param sessionId
      * @return
      */
-    public UserOnlineBo getSession(String sessionId) {
+    public UserOnlineDto getSession(String sessionId) {
         Session session = shiroSessionRepository.getSession(sessionId);
-        UserOnlineBo bo = getSessionBo(session);
+        UserOnlineDto bo = getSessionBo(session);
         return bo;
     }
 
-    private UserOnlineBo getSessionBo(Session session) {
+    private UserOnlineDto getSessionBo(Session session) {
         // 获取session登录信息。
         Object obj = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
         if (null == obj) {
@@ -117,9 +117,9 @@ public class CustomSessionManager {
              * SimpleAuthenticationInfo(user,user.getPswd(), getName());的user 对象。
              */
             obj = spc.getPrimaryPrincipal();
-            if (null != obj && obj instanceof UUser) {
+            if (null != obj && obj instanceof UserBean) {
                 // 存储session + user 综合信息
-                UserOnlineBo userBo = new UserOnlineBo((UUser) obj);
+                UserOnlineDto userBo = new UserOnlineDto((UserBean) obj);
                 // 最后一次和系统交互的时间
                 userBo.setLastAccess(session.getLastAccessTime());
                 // 主机的ip地址
@@ -188,7 +188,7 @@ public class CustomSessionManager {
      */
     public void forbidUserById(Long id, Long status) {
         // 获取所有在线用户
-        for (UserOnlineBo bo : getAllUser()) {
+        for (UserOnlineDto bo : getAllUser()) {
             Long userId = bo.getId();
             // 匹配用户ID
             if (userId.equals(id)) {

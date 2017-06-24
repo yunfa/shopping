@@ -16,7 +16,7 @@ import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.permission.bo.URoleBo;
 import com.alpha.permission.bo.UserRoleAllocationBo;
 import com.alpha.permission.service.PermissionService;
-import com.alpha.user.service.UUserService;
+import com.alpha.user.service.UserService;
 
 /**
  * @author Li Yunfa
@@ -28,7 +28,7 @@ import com.alpha.user.service.UUserService;
 public class UserRoleAllocationController extends BaseController {
 
     @Autowired
-    UUserService userService;
+    UserService userService;
 
     @Autowired
     PermissionService permissionService;

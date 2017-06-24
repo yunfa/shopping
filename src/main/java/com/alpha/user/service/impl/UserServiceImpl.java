@@ -11,24 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
-import com.alpha.common.dao.UUserMapper;
-import com.alpha.common.dao.UUserRoleMapper;
-import com.alpha.common.model.UUser;
-import com.alpha.common.model.UUserRole;
+import com.alpha.common.dao.UserMapper;
+import com.alpha.common.dao.UserRoleMapper;
+import com.alpha.common.model.UserBean;
+import com.alpha.common.model.UserRoleBean;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.core.shiro.session.CustomSessionManager;
 import com.alpha.core.shiro.token.manager.TokenManager;
 import com.alpha.permission.bo.URoleBo;
 import com.alpha.permission.bo.UserRoleAllocationBo;
-import com.alpha.user.service.UUserService;
+import com.alpha.user.service.UserService;
 
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
 @Service
-public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUserService {
+public class UserServiceImpl extends BaseMybatisDao<UserMapper> implements UserService {
 
     private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
@@ -39,10 +39,10 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
     private CustomSessionManager customSessionManager;
 
     private @Autowired
-    UUserMapper userMapper;
+    UserMapper userMapper;
 
     @Autowired
-    private UUserRoleMapper userRoleMapper;
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public int deleteByPrimaryKey(Long id) {
@@ -50,49 +50,49 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
     }
 
     @Override
-    public UUser insert(UUser entity) {
+    public UserBean insert(UserBean entity) {
         userMapper.insert(entity);
         return entity;
     }
 
     @Override
-    public UUser insertSelective(UUser entity) {
+    public UserBean insertSelective(UserBean entity) {
         userMapper.insertSelective(entity);
         return entity;
     }
 
     @Override
-    public UUser selectByPrimaryKey(Long id) {
+    public UserBean selectByPrimaryKey(Long id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int updateByPrimaryKey(UUser entity) {
+    public int updateByPrimaryKey(UserBean entity) {
         return userMapper.updateByPrimaryKey(entity);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(UUser entity) {
+    public int updateByPrimaryKeySelective(UserBean entity) {
         return userMapper.updateByPrimaryKeySelective(entity);
     }
 
     @Override
-    public UUser login(String email, String pswd) {
+    public UserBean login(String email, String pswd) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("email", email);
         map.put("pswd", pswd);
-        UUser user = userMapper.login(map);
+        UserBean user = userMapper.login(map);
         return user;
     }
 
     @Override
-    public UUser findUserByEmail(String email) {
+    public UserBean findUserByEmail(String email) {
         return userMapper.findUserByEmail(email);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
+    public Pagination<UserBean> findByPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
         return super.findPage(resultMap, pageNo, pageSize);
     }
 
@@ -125,7 +125,7 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
     public Map<String, Object> updateForbidUserById(Long id, Long status) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         try {
-            UUser user = selectByPrimaryKey(id);
+            UserBean user = selectByPrimaryKey(id);
             user.setStatus(status);
             updateByPrimaryKeySelective(user);
 
@@ -173,7 +173,7 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
                 for (String rid : idArray) {
                     // 这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的}
                     if (StringUtils.isNotBlank(rid)) {
-                        UUserRole entity = new UUserRole(userId, new Long(rid));
+                        UserRoleBean entity = new UserRoleBean(userId, new Long(rid));
                         count += userRoleMapper.insertSelective(entity);
                     }
                 }

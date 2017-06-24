@@ -2,7 +2,7 @@ package com.alpha.permission.bo;
 
 import java.io.Serializable;
 
-import com.alpha.common.model.UPermission;
+import com.alpha.common.model.PermissionBean;
 import com.alpha.common.utils.StringUtils;
 
 /**
@@ -11,7 +11,7 @@ import com.alpha.common.utils.StringUtils;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class UPermissionBo extends UPermission implements Serializable {
+public class PermissionBo extends PermissionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

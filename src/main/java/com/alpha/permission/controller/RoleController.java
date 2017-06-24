@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alpha.common.controller.BaseController;
-import com.alpha.common.model.URole;
+import com.alpha.common.model.RoleBean;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.permission.service.RoleService;
 import com.alpha.user.manager.UserManager;
@@ -42,7 +42,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "index")
     public ModelAndView index(String findContent, ModelMap modelMap) {
         modelMap.put("findContent", findContent);
-        Pagination<URole> role = roleService.findPage(modelMap, pageNo, pageSize);
+        Pagination<RoleBean> role = roleService.findPage(modelMap, pageNo, pageSize);
         return new ModelAndView("role/index", "page", role);
     }
 
@@ -54,7 +54,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "addRole", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addRole(URole role) {
+    public Map<String, Object> addRole(RoleBean role) {
         try {
             int count = roleService.insertSelective(role);
             resultMap.put("status", 200);
@@ -98,7 +98,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public List<Map<String, Object>> getPermissionTree() {
         // 查询我所有的角色 ---> 权限
-        List<URole> roles = roleService.findNowAllPermission();
+        List<RoleBean> roles = roleService.findNowAllPermission();
         // 把查询出来的roles 转换成bootstarp 的 tree数据
         List<Map<String, Object>> data = UserManager.toTreeData(roles);
         return data;

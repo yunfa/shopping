@@ -3,13 +3,13 @@ package com.alpha.user.bo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class UserOnlineBo extends UUser implements Serializable {
+public class UserOnlineDto extends UserBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,10 +31,10 @@ public class UserOnlineBo extends UUser implements Serializable {
     //session 是否踢出
     private boolean sessionStatus = Boolean.TRUE;
 
-    public UserOnlineBo() {
+    public UserOnlineDto() {
     }
 
-    public UserOnlineBo(UUser user) {
+    public UserOnlineDto(UserBean user) {
         super(user);
     }
 

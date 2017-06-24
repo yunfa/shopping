@@ -10,17 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alpha.common.dao.UPermissionMapper;
-import com.alpha.common.dao.URolePermissionMapper;
-import com.alpha.common.dao.UUserMapper;
-import com.alpha.common.dao.UUserRoleMapper;
-import com.alpha.common.model.UPermission;
-import com.alpha.common.model.URolePermission;
+import com.alpha.common.dao.PermissionMapper;
+import com.alpha.common.dao.RolePermissionMapper;
+import com.alpha.common.dao.UserMapper;
+import com.alpha.common.dao.UserRoleMapper;
+import com.alpha.common.model.PermissionBean;
+import com.alpha.common.model.RolePermissionBean;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.core.shiro.token.manager.TokenManager;
-import com.alpha.permission.bo.UPermissionBo;
+import com.alpha.permission.bo.PermissionBo;
 import com.alpha.permission.service.PermissionService;
 
 /**
@@ -28,21 +28,21 @@ import com.alpha.permission.service.PermissionService;
  * @date 2017年6月21日
  */
 @Service
-public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> implements PermissionService {
+public class PermissionServiceImpl extends BaseMybatisDao<PermissionMapper> implements PermissionService {
 
     private static Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Autowired
-    UPermissionMapper permissionMapper;
+    PermissionMapper permissionMapper;
 
     @Autowired
-    UUserMapper userMapper;
+    UserMapper userMapper;
 
     @Autowired
-    URolePermissionMapper rolePermissionMapper;
+    RolePermissionMapper rolePermissionMapper;
 
     @Autowired
-    UUserRoleMapper userRoleMapper;
+    UserRoleMapper userRoleMapper;
 
     @Override
     public int deleteByPrimaryKey(Long id) {
@@ -50,13 +50,13 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
     }
 
     @Override
-    public UPermission insert(UPermission record) {
+    public PermissionBean insert(PermissionBean record) {
         permissionMapper.insert(record);
         return record;
     }
 
     @Override
-    public UPermission insertSelective(UPermission record) {
+    public PermissionBean insertSelective(PermissionBean record) {
         // 添加权限
         permissionMapper.insertSelective(record);
         // 每添加一个权限，都往【系统管理员 888888】里添加一次。保证系统管理员有最大的权限
@@ -65,17 +65,17 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
     }
 
     @Override
-    public UPermission selectByPrimaryKey(Long id) {
+    public PermissionBean selectByPrimaryKey(Long id) {
         return permissionMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int updateByPrimaryKey(UPermission record) {
+    public int updateByPrimaryKey(PermissionBean record) {
         return permissionMapper.updateByPrimaryKey(record);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(UPermission record) {
+    public int updateByPrimaryKeySelective(PermissionBean record) {
         return permissionMapper.updateByPrimaryKeySelective(record);
     }
 
@@ -95,7 +95,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
             for (String idx : idArray) {
                 Long id = new Long(idx);
 
-                List<URolePermission> rolePermissions = rolePermissionMapper.findRolePermissionByPid(id);
+                List<RolePermissionBean> rolePermissions = rolePermissionMapper.findRolePermissionByPid(id);
                 if (null != rolePermissions && rolePermissions.size() > 0) {
                     errorCount += rolePermissions.size();
                 } else {
@@ -120,12 +120,12 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 
     @SuppressWarnings("unchecked")
     @Override
-    public Pagination<UPermission> findPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
+    public Pagination<PermissionBean> findPage(Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
         return super.findPage(resultMap, pageNo, pageSize);
     }
 
     @Override
-    public List<UPermissionBo> selectPermissionById(Long id) {
+    public List<PermissionBo> selectPermissionById(Long id) {
         return permissionMapper.selectPermissionById(id);
     }
 
@@ -161,7 +161,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
                 for (String pid : idArray) {
                     // 这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的}
                     if (StringUtils.isNotBlank(pid)) {
-                        URolePermission entity = new URolePermission(roleId, new Long(pid));
+                        RolePermissionBean entity = new RolePermissionBean(roleId, new Long(pid));
                         count += rolePermissionMapper.insertSelective(entity);
                     }
                 }

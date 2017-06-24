@@ -6,7 +6,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.SpringContextUtil;
 import com.alpha.core.shiro.session.CustomSessionManager;
 import com.alpha.core.shiro.token.SampleRealm;
@@ -32,8 +32,8 @@ public class TokenManager {
      * 
      * @return
      */
-    public static UUser getToken() {
-        UUser token = (UUser) SecurityUtils.getSubject().getPrincipal();
+    public static UserBean getToken() {
+        UserBean token = (UserBean) SecurityUtils.getSubject().getPrincipal();
         return token;
     }
 
@@ -102,7 +102,7 @@ public class TokenManager {
      * @param rememberMe
      * @return
      */
-    public static UUser login(UUser user, Boolean rememberMe) {
+    public static UserBean login(UserBean user, Boolean rememberMe) {
         ShiroToken token = new ShiroToken(user.getEmail(), user.getPswd());
         token.setRememberMe(rememberMe);
         SecurityUtils.getSubject().login(token);

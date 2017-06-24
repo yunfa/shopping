@@ -2,14 +2,14 @@ package com.alpha.permission.bo;
 
 import java.io.Serializable;
 
-import com.alpha.common.model.URole;
+import com.alpha.common.model.RoleBean;
 import com.alpha.common.utils.StringUtils;
 
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class URoleBo extends URole implements Serializable {
+public class URoleBo extends RoleBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

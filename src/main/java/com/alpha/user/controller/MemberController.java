@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alpha.common.controller.BaseController;
-import com.alpha.common.model.UUser;
+import com.alpha.common.model.UserBean;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.core.shiro.session.CustomSessionManager;
-import com.alpha.user.bo.UserOnlineBo;
-import com.alpha.user.service.UUserService;
+import com.alpha.user.bo.UserOnlineDto;
+import com.alpha.user.service.UserService;
 
 /**
  * @author Li Yunfa
@@ -36,7 +36,7 @@ public class MemberController extends BaseController {
     CustomSessionManager customSessionManager;
 
     @Autowired
-    UUserService userService;
+    UserService userService;
 
     /**
      * 用户列表管理
@@ -47,7 +47,7 @@ public class MemberController extends BaseController {
     public ModelAndView list(ModelMap map, Integer pageNo, String findContent) {
 
         map.put("findContent", findContent);
-        Pagination<UUser> page = userService.findByPage(map, pageNo, pageSize);
+        Pagination<UserBean> page = userService.findByPage(map, pageNo, pageSize);
         map.put("page", page);
         return new ModelAndView("member/list");
     }
@@ -59,7 +59,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "online")
     public ModelAndView online() {
-        List<UserOnlineBo> list = customSessionManager.getAllUser();
+        List<UserOnlineDto> list = customSessionManager.getAllUser();
         return new ModelAndView("member/online", "list", list);
     }
 
@@ -70,7 +70,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "onlineDetails/{sessionId}", method = RequestMethod.GET)
     public ModelAndView onlineDetails(@PathVariable("sessionId") String sessionId) {
-        UserOnlineBo bo = customSessionManager.getSession(sessionId);
+        UserOnlineDto bo = customSessionManager.getSession(sessionId);
         return new ModelAndView("member/onlineDetails", "bo", bo);
     }
 
