@@ -2,6 +2,8 @@ package com.alpha.core.shiro.listenter;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alpha.core.shiro.session.ShiroSessionRepository;
 
@@ -11,37 +13,38 @@ import com.alpha.core.shiro.session.ShiroSessionRepository;
  */
 public class CustomSessionListener implements SessionListener {
 
-    private ShiroSessionRepository shiroSessionRepository;
+	private static Logger logger = LoggerFactory.getLogger(CustomSessionListener.class);
 
-    /**
-     * 一个回话的生命周期开始
-     */
-    @Override
-    public void onStart(Session session) {
-        //TODO
-        System.out.println("on start");
-    }
+	private ShiroSessionRepository shiroSessionRepository;
 
-    /**
-     * 一个回话的生命周期结束
-     */
-    @Override
-    public void onStop(Session session) {
-        //TODO
-        System.out.println("on stop");
-    }
+	/**
+	 * 一个回话的生命周期开始
+	 */
+	@Override
+	public void onStart(Session session) {
+		logger.debug("on start");
+	}
 
-    @Override
-    public void onExpiration(Session session) {
-        shiroSessionRepository.deleteSession(session.getId());
-    }
+	/**
+	 * 一个回话的生命周期结束
+	 */
+	@Override
+	public void onStop(Session session) {
+		// TODO
+		logger.debug("on stop");
+	}
 
-    public ShiroSessionRepository getShiroSessionRepository() {
-        return shiroSessionRepository;
-    }
+	@Override
+	public void onExpiration(Session session) {
+		shiroSessionRepository.deleteSession(session.getId());
+	}
 
-    public void setShiroSessionRepository(ShiroSessionRepository shiroSessionRepository) {
-        this.shiroSessionRepository = shiroSessionRepository;
-    }
+	public ShiroSessionRepository getShiroSessionRepository() {
+		return shiroSessionRepository;
+	}
+
+	public void setShiroSessionRepository(ShiroSessionRepository shiroSessionRepository) {
+		this.shiroSessionRepository = shiroSessionRepository;
+	}
 
 }

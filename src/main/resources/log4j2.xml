@@ -42,13 +42,10 @@
 	</appenders>
 
 	<loggers>
-		<logger name="org.mybatis" level="info" />
-		<logger name="org.apache" level="warn" />
+		<logger name="org.mybatis" level="debug" />
+		<logger name="org.apache" level="info" />
 		<logger name="org.apache.ibatis" level="debug" />
-		<logger name="org.apache.mina" level="warn" />
-		<logger name="httpclient.wire" level="warn" /><!-- 用于过滤org.apache.common.httpclient.wire -->
 		<logger name="org.springframework" level="info" />
-		<logger name="org.springframework.web" level="info" />
 		<logger name="com.alibaba" level="info" />
 		<logger name="springfox" level="info" />
 		

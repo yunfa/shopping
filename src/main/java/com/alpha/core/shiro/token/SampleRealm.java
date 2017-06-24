@@ -30,13 +30,13 @@ import com.alpha.user.service.UUserService;
 public class SampleRealm extends AuthorizingRealm {
 
     @Autowired
-    UUserService userService;
+    private UUserService userService;
 
     @Autowired
-    PermissionService permissionService;
+    private PermissionService permissionService;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     public SampleRealm() {
         super();
@@ -47,7 +47,6 @@ public class SampleRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
-
         ShiroToken token = (ShiroToken) authcToken;
         UUser user = userService.login(token.getUsername(), token.getPswd());
         if (null == user) {
@@ -70,7 +69,6 @@ public class SampleRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-
         Long userId = TokenManager.getUserId();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //根据用户ID查询角色（role），放入到Authorization里。

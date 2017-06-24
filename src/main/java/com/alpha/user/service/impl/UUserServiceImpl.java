@@ -36,13 +36,13 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
      * 用户手动操作Session
      */
     @Autowired
-    CustomSessionManager customSessionManager;
+    private CustomSessionManager customSessionManager;
 
-    @Autowired
+    private @Autowired
     UUserMapper userMapper;
 
     @Autowired
-    UUserRoleMapper userRoleMapper;
+    private UUserRoleMapper userRoleMapper;
 
     @Override
     public int deleteByPrimaryKey(Long id) {

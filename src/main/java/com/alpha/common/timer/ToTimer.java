@@ -1,7 +1,5 @@
 package com.alpha.common.timer;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,16 +16,15 @@ import com.alpha.permission.service.RoleService;
 @Component
 public class ToTimer {
 
-    @Resource
-    RoleService roleService;
+	@Resource
+	private RoleService roleService;
 
-    @Scheduled(cron = "0/20 * * * * ? ")
-    public void run() {
-        /**
-         * 调用存储过程，重新创建表，插入初始化数据。
-         */
-        roleService.initData();
-        System.out.println(new Date().getTime());
-    }
+	@Scheduled(cron = "0/20 * * * * ? ")
+	public void run() {
+		/**
+		 * 调用存储过程，重新创建表，插入初始化数据。
+		 */
+		// roleService.initData();
+	}
 
 }

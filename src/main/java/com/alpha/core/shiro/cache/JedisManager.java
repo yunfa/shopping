@@ -34,7 +34,7 @@ public class JedisManager {
         } catch (JedisConnectionException e) {
             String message = StringUtils.trim(e.getMessage());
             if ("Could not get a resource from the pool".equalsIgnoreCase(message)) {
-                System.out.println("++++++++++请检查你的redis服务++++++++");
+                logger.debug("++++++++++请检查你的redis服务++++++++");
                 System.exit(0);// 停止项目
             }
             throw new JedisConnectionException(e);

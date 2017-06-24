@@ -36,7 +36,7 @@ import com.alpha.permission.service.RoleService;
 public class CommonController extends BaseController {
 
     @Resource
-    RoleService roleService;
+    private RoleService roleService;
 
     @RequestMapping("refreshDB")
     @ResponseBody
@@ -141,7 +141,7 @@ public class CommonController extends BaseController {
             captcha.out(out);
             out.flush();
             // 存入Shiro会话session
-            System.out.println(captcha.text().toLowerCase());
+            logger.debug(captcha.text().toLowerCase());
             TokenManager.setVal2Session(VerifyCodeUtils.V_CODE, captcha.text().toLowerCase());
         } catch (Exception e) {
             logger.error("获取验证码异常：", e);
