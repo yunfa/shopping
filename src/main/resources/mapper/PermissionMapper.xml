@@ -21,8 +21,8 @@
 		<where>
 			<if test="findContent != null and findContent !='' ">
 				and (
-					LOWER(name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
-					LOWER(url) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+					LOWER(name) like '%'+#{findContent}+'%' or
+					LOWER(url) like '%'+#{findContent}+'%'
 				)
 			</if>
 		</where>
@@ -33,7 +33,9 @@
 		<include refid="Base_Column_List" />
 		from u_permission
 		<include refid="where_all" />
+		<!-- 
 		<include refid="limit_sql" />
+		-->
 	</select>
 
 	<select id="findCount" resultMap="BaseResultMap">
@@ -44,7 +46,7 @@
 	<!-- 根据角色获取权限，marker:0,没有权限，marker：非0(和up.id)一致表示有权限。 com.alpha.permission.bo.PermissionBo中的这个方法是校验权限 public boolean isCheck(){ 
 		return StringUtils.equals(roleId,marker); } -->
 	<select id="selectPermissionById" resultType="com.alpha.permission.bo.PermissionBo">
-		select up.id,ur.id roleId,up.name,up.url,min(ifnull(ur.id,0))marker 
+		select up.id,ur.id roleId,up.name,up.url,min(ISNULL(ur.id,0))marker 
 		from u_permission up left join u_role_permission urp on urp.pid = up.id
 		left join (select id from u_role where id = #{id,jdbcType=BIGINT}) ur on ur.id = urp.rid
 		group by up.id

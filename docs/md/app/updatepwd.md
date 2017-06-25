@@ -3,7 +3,7 @@
 ## 请求参数
 	method:post
 	
-	url:https://rpay.8111157.com/app/update_pwd.shtml
+	url:http://rpay.8111157.com:8080/app/update_pwd.shtml
 	
 	parameter:
 	userName(登录账号),
@@ -11,9 +11,9 @@
 	verifyCode(验证码)
 
 ## 链接示例
-    https://rpay.8111157.com/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
-    https://rpay.8111157.com/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
-    https://rpay.8111157.com/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
+    http://rpay.8111157.com:8080/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
+    http://rpay.8111157.com:8080/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
+    http://rpay.8111157.com:8080/app/update_pwd.shtml?userName=rpay&userPwd=bbb&verifyCode=2322
     
 ## 返回参数
 	{

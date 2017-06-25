@@ -25,8 +25,8 @@
 		<where>
 			<if test="findContent != null and findContent !='' ">
 				and (
-				LOWER(nickname) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
-				LOWER(email) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+				nickname like '%'+#{findContent}+'%' or
+				email like '%'+#{findContent}+'%'
 				)
 			</if>
 		</where>
@@ -37,7 +37,9 @@
 		<include refid="Base_Column_List" />
 		from u_user
 		<include refid="where_all" />
+		<!-- 
 		<include refid="limit_sql" />
+		-->
 	</select>
 	
 	<select id="findCount" resultMap="BaseResultMap">
@@ -47,24 +49,22 @@
 
 	<!-- 用户权限分配的分页查询 -->
 	<select id="findUserAndRole" resultType="com.alpha.permission.bo.UserRoleAllocationBo">
-		select u.id,u.nickname,u.email,u.create_time,u.last_login_time,u.status ,group_concat(ur.name)
-		roleNames,group_concat(ur.id)roleIds from
-		u_user u
-		left join u_user_role uur on uur.uid = u.id
+		select u.id,u.nickname,u.email,u.create_time,u.last_login_time,u.status,ur.name roleNames,ur.id roleIds 
+		from u_user u left join u_user_role uur on uur.uid = u.id
 		left join u_role ur on ur.id = uur.rid
 		<where>
 			<if test="findContent != null and findContent !='' ">
-				and (
-				LOWER(u.nickname) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
-				LOWER(u.email) like LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
-				)
+			and (
+				u.nickname like '%'+#{findContent}+'%' or
+				u.email like '%'+#{findContent}+'%'
+			)
 			</if>
 		</where>
-		group by u.id
+		order by u.id
 	</select>
 	
 	<select id="selectRoleByUserId" resultType="com.alpha.permission.bo.URoleBo">
-		select ur.id,ur.name,ur.type,ifnull(uur.uid,0) marker from u_role ur
+		select ur.id,ur.name,ur.type,isnull(uur.uid,0) marker from u_role ur
 		left join(select * from u_user_role where
 		uid=#{id,jdbcType=BIGINT}) uur on uur.rid = ur.id
 	</select>
