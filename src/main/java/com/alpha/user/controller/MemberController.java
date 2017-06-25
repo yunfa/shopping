@@ -17,7 +17,7 @@ import com.alpha.common.controller.BaseController;
 import com.alpha.common.model.UserBean;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.core.shiro.session.CustomSessionManager;
-import com.alpha.user.bo.UserOnlineDto;
+import com.alpha.user.dto.UserOnlineDto;
 import com.alpha.user.service.UserService;
 
 /**

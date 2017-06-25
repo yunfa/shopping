@@ -3,14 +3,14 @@
 ## 请求参数
 	method:get
 	
-	url:https://rpay.8111157.com/app/dealRecord.shtml
+	url:https://rpay.8111157.com/app/transfer_record.shtml
 	
 	parameter:userId=888&token=jfakljdfaldj
 
 ## 链接示例
-    https://rpay.8111157.com/app/dealRecord.shtml?userId=888&token=jfakljdfaldj
-    https://rpay.8111157.com/app/dealRecord.shtml?userId=888&token=jfakljdfaldj
-    https://rpay.8111157.com/app/dealRecord.shtml?userId=888&token=jfakljdfaldj
+    https://rpay.8111157.com/app/transfer_record.shtml?userId=888&token=jfakljdfaldj
+    https://rpay.8111157.com/app/transfer_record.shtml?userId=888&token=jfakljdfaldj
+    https://rpay.8111157.com/app/transfer_record.shtml?userId=888&token=jfakljdfaldj
     
 ## 返回参数
 	{

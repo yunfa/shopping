@@ -1,14 +1,15 @@
 package com.alpha.app.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alpha.common.base.HttpResult;
 import com.alpha.common.controller.BaseController;
-import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.ReflectUtil;
+import com.alpha.user.dto.UserDto;
 
 /**
  * 登录Controller
@@ -20,14 +21,32 @@ import com.alpha.common.utils.ReflectUtil;
 @RequestMapping("/app")
 public class LoginController extends BaseController {
 
+	private Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 	/**
-	 * 登录
+	 * 用户登录
 	 * 
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/login")
-	public HttpResult<?> login(HttpServletRequest request) {
-		return HttpResult.success(ReflectUtil.setObject(UserBean.class));
+	public HttpResult<?> login(@RequestParam String userName, @RequestParam String userPwd,
+			@RequestParam String verifyCode) {
+		logger.info("userName={},userPwd={},verifyCode={}", userName, userPwd, verifyCode);
+		return HttpResult.success(ReflectUtil.setObject(UserDto.class));
 	}
+
+	/**
+	 * 修改密码
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/update_pwd")
+	public HttpResult<?> updatePwd(@RequestParam String userName, @RequestParam String userPwd,
+			@RequestParam String verifyCode) {
+		logger.info("userName={},userPwd={},verifyCode={}", userName, userPwd, verifyCode);
+		return HttpResult.success();
+	}
+
 }

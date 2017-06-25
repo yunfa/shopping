@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.StringUtils;
 import com.alpha.core.shiro.CustomShiroSessionDAO;
-import com.alpha.user.bo.UserOnlineDto;
+import com.alpha.user.dto.UserOnlineDto;
 
 /**
  * @author Li Yunfa

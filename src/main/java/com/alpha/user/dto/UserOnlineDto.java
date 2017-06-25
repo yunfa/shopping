@@ -1,4 +1,4 @@
-package com.alpha.user.bo;
+package com.alpha.user.dto;
 
 import java.io.Serializable;
 import java.util.Date;

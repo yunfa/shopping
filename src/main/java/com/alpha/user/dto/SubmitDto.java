@@ -1,4 +1,4 @@
-package com.alpha.user.bo;
+package com.alpha.user.dto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

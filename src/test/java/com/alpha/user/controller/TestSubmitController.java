@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alpha.common.controller.BaseController;
 import com.alpha.common.utils.MathUtil;
-import com.alpha.user.bo.SubmitDto;
+import com.alpha.user.dto.SubmitDto;
 
 /**
  * @author Li Yunfa
