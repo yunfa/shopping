@@ -71,7 +71,7 @@ public class ReflectUtil {
 	private static void setFiled(Class class1, Object object, Field[] fields) throws Exception {
 		for (Field field : fields) {
 			if ("serialVersionUID".equals(field.getName())) {
-				break;
+				continue;
 			}
 			field.setAccessible(true);
 			if (field.getType() == class1) {
