@@ -5,7 +5,7 @@
 	
 	url:http://rpay.8111157.com:8080/app/buy_goods.shtml
 	
-	parameter:userId=888&token=jfakljdfaldj
+	parameter:userId=888&token=jfakljdfaldjad
 	goodsId(商品编号，多个用逗号分隔),
 	goodsName(商品名称，多个用逗号分隔),
 	goodsNum(商品数量，多个用逗号分隔),
