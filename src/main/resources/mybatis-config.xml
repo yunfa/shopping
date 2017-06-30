@@ -5,6 +5,4 @@
 	<settings>
 		<setting name="defaultExecutorType" value="REUSE" />
 	</settings>
-
-	<typeAliases></typeAliases>
 </configuration>

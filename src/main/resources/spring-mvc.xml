@@ -25,7 +25,6 @@
 	<bean name="api" class="com.alpha.core.tags.APITemplateModel"></bean>
 	<bean name="springContextUtil" class="com.alpha.common.utils.SpringContextUtil" scope="singleton"></bean>
 
-	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven />
 
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -107,7 +106,7 @@
 			<value>utf-8</value>
 		</property>
 		<property name="freemarkerSettings">
-			<props><!-- 315360000 -->
+			<props>
 				<prop key="template_update_delay">0</prop>
 				<prop key="defaultEncoding">UTF-8</prop>
 				<prop key="url_escaping_charset">UTF-8</prop>
@@ -116,8 +115,7 @@
 				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
 				<prop key="date_format">yyyy-MM-dd</prop>
 				<prop key="time_format">HH:mm:ss</prop>
-				<!-- <prop key="number_format">0.######</prop> -->
-				<prop key="number_format">#</prop>
+				<prop key="number_format">0.#</prop>
 				<prop key="whitespace_stripping">true</prop>
 				<prop key="auto_import">
 					/common/config/top.ftl as _top,

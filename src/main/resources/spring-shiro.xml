@@ -141,20 +141,6 @@
 		<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/?login" />
 
-		<!-- 初始配置，现采用自定义 -->
-		<!-- <property name="filterChainDefinitions" > -->
-		<!-- <value> -->
-		<!-- /** = anon -->
-		<!-- /page/login.jsp = anon -->
-		<!-- /page/register/* = anon -->
-		<!-- /page/index.jsp = authc -->
-		<!-- /page/addItem* = authc,roles[数据管理员] -->
-		<!-- /page/file* = authc,roleOR[普通用户,数据管理员] -->
-		<!-- /page/listItems* = authc,roleOR[数据管理员,普通用户] -->
-		<!-- /page/showItem* = authc,roleOR[数据管理员,普通用户] -->
-		<!-- /page/updateItem*=authc,roles[数据管理员] -->
-		<!-- </value> -->
-		<!-- </property> -->
 		<!-- 读取初始自定义权限内容 -->
 		<property name="filterChainDefinitions" value="#{shiroManager.loadFilterChainDefinitions()}" />
 		<property name="filters">

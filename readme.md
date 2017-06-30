@@ -1,22 +1,16 @@
 使用过程：
-
 1.创建数据库。
-创建语句		   :init_shiro.sql
-
+创建语句:init_shiro.sql
 2.部署
 先运行redis 服务采用默认配置
 修改数据库链接地址，用户名，密码
 maven 运行tomcat7:run。
-
 管理员帐号：admin
 密码：admin
-
 主要解决是之前说的问题：Shiro 教程，关于最近反应的相关异常问题，解决方法合集。
-
 项目在本页面的附件中提取。
 
 一、Cache配置修改。
-
 配置文件（spring-cache.xml ）中已经修改为如下配置：
 
     <!-- redis 配置,也可以把配置挪到properties配置文件中,再读取 -->
@@ -33,7 +27,6 @@ maven 运行tomcat7:run。
      -->
 
 二、登录获取上一个URL地址报错。
-
 当没有获取到退出前的request ，为null 的时候会报错。在（UserLoginController.java  ）135行处有所修改。
 
     /**
@@ -51,7 +44,6 @@ maven 运行tomcat7:run。
      */
 
 三、删除了配置文件中的cookie写入域的问题。
-
 在配置文件里（spring-shiro.xml ）中的配置有所修改。
 
     <!-- 会话Cookie模板 -->
@@ -80,26 +72,18 @@ maven 运行tomcat7:run。
 
 记住我登录的信息配置。和上面配置是一样的道理，可以在相同 一级域名  下的所有域名都可以获取到登录的信息。
 
-
 四、简单实现了单个帐号只能在一处登录。
-
 我们在其他的系统中可以看到，单个帐号只允许一人使用，在A处登录了，B处再登录，那A处就被踢出了。如下图所示。
-
-但是此功能不是很完美，当A处被踢出后，再重新登录，这时候B处反应有点慢，具体我还没看，因为是之前加的功能，现在凌晨了，下次我有空再瞧瞧，同学你也可以看看，解决了和我说一声，我把功能修复。
-
+但是此功能不是很完美，当A处被踢出后，再重新登录，这时候B处反应有点慢
 
 五、修复功能（BUG）
 1.修复权限添加功能BUG。
 
 之前功能有问题，每当添加一个权限的时候，默认都给角色为“管理员”的角色默认添加当前新添加的权限。这样达到管理员的权限永远是最大的。由于代码有BUG ，导致所有权限删除了。现已修复。
 2.修复项目只能部署到Root目录下的问题。
-
 问题描述：之前项目只能部署到Root 下才能正常运行，目前已经修复，可以带项目路径进行访问了，之前只能这样访问，http://localhost:8080  而不能http://localhost:8080/shiro.demo/ 访问，目前是可以了。
-
 解决方案：在 FreeMarkerViewExtend.java 33行处 增加了BasePath ，通过BasePath 来控制请求目录，在 Freemarker  中可以自由使用，而 JSP  中是直接在 JSP  中获取BasePath 使用。
-
 解决后遗症：因为我们的权限是通过URL 来控制的，那么增加了项目的目录，导致权限不能正确的判断，再加上我们的项目名称（目录）可以自定义，导致更不好判断。
-
 后遗症解决方案：PermissionFilter.java 50行处 解决了这个问题，详情请看代码和注释，其实就是replace 了一下。
 
     HttpServletRequest httpRequest = ((HttpServletRequest)request);
@@ -116,7 +100,6 @@ maven 运行tomcat7:run。
     }
 
 3.项目启动的时候报错，关于JNDI的错误提示。
-
 其实也不是错，但是看着不舒服，所以还得解决这个问题。解决这个问题需要在web.xml 中的开始部位加入以下代码。
 
     <context-param>
@@ -133,7 +116,6 @@ maven 运行tomcat7:run。
     </context-param>
 
 4.项目Maven打包问题。
-
 打包的时候，不同版本的 Eclipse  还有IDEA 会有打包打不进去Mapper.xml 文件，这个时候要加如下代码（群里同学提供的）。
 
     <resources>
@@ -150,7 +132,6 @@ maven 运行tomcat7:run。
 在<build> 标签内加入即可
 
 5.Tomcat7以上在访问JSP页面的时候，提示JSTL错误。
-
 这个错误是因为Tomcat7 中没有 JSTL  的jar包，现在已经在项目pom.xml 中增加了如下 jar  的引入管理。
 
     <dependency>

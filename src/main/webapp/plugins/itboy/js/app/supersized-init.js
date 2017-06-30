@@ -20,9 +20,9 @@ jQuery(function($){
         // Components
         slide_links        : 'blank',    // Individual links for each slide (Options: false, 'num', 'name', 'blank')
         slides             : [    // Slideshow Images
-                                 {image : 'http://open.itboy.net/itboy/js/itboy/app/login_1.jpg'},
-                                 {image : 'http://open.itboy.net/itboy/js/itboy/app/login_2.jpg'},
-                                 {image : 'http://open.itboy.net/itboy/js/itboy/app/login_3.jpg'}
+                                 {image : '/plugins/itboy/pic/login_1.jpg'},
+                                 {image : '/plugins/itboy/pic/login_2.jpg'},
+                                 {image : '/plugins/itboy/pic/login_3.jpg'}
                              ]
 
     });

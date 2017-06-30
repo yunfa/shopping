@@ -35,12 +35,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- SSM -->
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.1.0</version>
-		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -72,10 +66,16 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.2.5.RELEASE</version>
 		</dependency>
+		<!-- SSM -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
@@ -148,12 +148,18 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>shiro-freemarker-tags</artifactId>
 			<version>0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- freemarker + shiro（标签） begin -->
 		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-			<groupId>org.opensymphony.quartz</groupId>
-			<version>1.6.1</version>
+			<version>2.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -168,11 +174,6 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-quartz</artifactId>
 			<version>1.2.5</version>
 		</dependency>
 		<dependency>
@@ -214,6 +215,11 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j2.version}</version>
@@ -233,12 +239,29 @@
 			<artifactId>log4j-web</artifactId>
 			<version>${log4j2.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
 		<!-- google -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>22.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

@@ -5,7 +5,7 @@
 		<Property name="logPattern">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%class:%L] - %msg%n</Property>
 		<Property name="datePattern">%d{yyyy-MM-dd}</Property>
 	</Properties>
-
+	
 	<appenders>
 		<Console name="console" target="SYSTEM_OUT">
 			<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="ACCEPT" />

@@ -8,14 +8,12 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	<!-- 自动扫描(自动注入) -->
 	<context:component-scan base-package="com.alpha.*.service;com.alpha.*.*.service" />
 	<context:component-scan base-package="com.alpha.common.timer" />
 
 	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
 		<property name="resultSetLogEnabled" value="true" />
 	</bean>
-	<!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
@@ -33,9 +31,7 @@
 		<property name="testOnReturn" value="${jdbc.testOnReturn}" />
 		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
 		<property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
-		<!-- <property name="logAbandoned" value="${jdbc.logAbandoned}" /> -->
 		<property name="filters" value="${jdbc.filters}" />
-		<!-- 关闭abanded连接时输出错误日志 -->
 		<property name="logAbandoned" value="true" />
 		<property name="proxyFilters">
 			<list>
@@ -49,12 +45,9 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:mapper/*.xml</value>
+				<value>classpath:mapper/*/*.xml</value>
 			</list>
 		</property>
-	</bean>
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	<bean id="baseMybatisDao" class="com.alpha.core.mybatis.BaseMybatisDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
@@ -82,7 +75,6 @@
 		</tx:attributes>
 	</tx:advice>
 	
-	<!-- AOP配置 -->
 	<aop:config>
 		<aop:pointcut id="myPointcut" expression="execution(public * com.alpha.*.service.impl.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />
