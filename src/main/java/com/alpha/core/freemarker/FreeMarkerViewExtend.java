@@ -1,4 +1,4 @@
-package com.alpha.core.freemarker.extend;
+package com.alpha.core.freemarker;
 
 import java.util.Date;
 import java.util.Map;

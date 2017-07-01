@@ -25,7 +25,6 @@ import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.StringUtil;
 import com.alpha.common.utils.VerifyCodeUtils;
 import com.alpha.core.shiro.token.TokenManager;
-import com.alpha.user.manager.UserManager;
 import com.alpha.user.service.UserService;
 
 /**
@@ -90,7 +89,7 @@ public class UserLoginController extends BaseController {
 		entity.setCreateTime(date);
 		entity.setLastLoginTime(date);
 		// 把密码md5
-		entity = UserManager.md5Pswd(entity);
+		entity = userService.md5Pswd(entity);
 		// 设置有效
 		entity.setStatus(Const._1);
 

@@ -77,7 +77,7 @@
 	<!-- 视图解析器 -->
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-		<property name="viewClass" value="com.alpha.core.freemarker.extend.FreeMarkerViewExtend" />
+		<property name="viewClass" value="com.alpha.core.freemarker.FreeMarkerViewExtend" />
 		<!-- 把Freemarker 扩展一下，把相关属性加入进去。。。 -->
 		<property name="contentType" value="text/html; charset=utf-8" />
 		<property name="cache" value="true" />
@@ -92,7 +92,7 @@
 	</bean>
 
 	<!-- 配置freeMarker 拓展 -->
-	<bean id="freemarkerConfig" class="com.alpha.core.freemarker.extend.FreeMarkerConfigExtend">
+	<bean id="freemarkerConfig" class="com.alpha.core.freemarker.FreeMarkerConfigExtend">
 		<property name="templateLoaderPath">
 			<value>/WEB-INF/ftl/</value>
 		</property>
