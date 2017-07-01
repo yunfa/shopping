@@ -2,11 +2,13 @@ package com.alpha.common.model;
 
 import java.math.BigDecimal;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class DsUserBean {
 
 	private Integer userId;
 
-	private String userNumber;
+	private String userName;
 
 	private String userPwd1;
 
@@ -18,6 +20,8 @@ public class DsUserBean {
 
 	private String dbName;
 
+	private String token;
+
 	public Integer getUserId() {
 		return userId;
 	}
@@ -26,12 +30,12 @@ public class DsUserBean {
 		this.userId = userId;
 	}
 
-	public String getUserNumber() {
-		return userNumber;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserNumber(String userNumber) {
-		this.userNumber = userNumber;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getUserPwd1() {
@@ -74,4 +78,16 @@ public class DsUserBean {
 		this.dbName = dbName;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

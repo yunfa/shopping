@@ -3,7 +3,7 @@
 <mapper namespace="com.alpha.common.dao.DsUserMapper">
 	<resultMap id="BaseResultMap" type="com.alpha.common.model.DsUserBean">
 		<id column="id" property="userId" jdbcType="INTEGER" />
-		<result column="U_Number" property="userNumber" jdbcType="VARCHAR" />
+		<result column="U_Number" property="userName" jdbcType="VARCHAR" />
 		<result column="U_1st_Password" property="userPwd1" jdbcType="VARCHAR" />
 		<result column="U_3rd_Password" property="userPwd3" jdbcType="VARCHAR" />
 		<result column="U_Account_Total_5" property="amount" jdbcType="DECIMAL" />
@@ -15,23 +15,36 @@
 	</sql>
 
 	<!-- 登录 -->
-	<select id="getUserByNumber" resultMap="BaseResultMap">
+	<select id="getUserByNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from #{dbName}.dbo.u_user
-		where U_Number = #{userNumber}
+		from ${dbName}.dbo.DS_User
+		where U_Number = #{userName}
 	</select>
 
 	<select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from #{dbName}.dbo.u_user
+		from ${dbName}.dbo.DS_User
 		where id = #{userId}
 	</select>
 
+	<select id="getMobileByNumber" resultType="string" parameterType="java.lang.Integer">
+		select top 1 C_Mobile
+		from ${dbName}.dbo.DS_Contact
+		where User_ID = #{userId} and C_Mobile like '1%'
+		order by ID desc
+	</select>
+
+	<update id="updateLoginPwd" parameterType="com.alpha.common.model.DsUserBean">
+		update ${dbName}.dbo.DS_User
+		set U_1st_Password = #{userPwd1}
+		where id = #{userId}
+	</update>
+
 	<update id="updateAmount" parameterType="com.alpha.common.model.DsUserBean">
-		update #{dbName}.dbo.u_user
-		U_Account_Total_5 = #{amount}
+		update ${dbName}.dbo.DS_User
+		set U_Account_Total_5 = #{amount}
 		where id = #{userId}
 	</update>
 

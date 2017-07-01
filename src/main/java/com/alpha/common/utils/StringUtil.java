@@ -2,6 +2,8 @@ package com.alpha.common.utils;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,8 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import sun.misc.BASE64Decoder;
+import com.alpha.common.base.Enums;
 
 public class StringUtil {
 
@@ -374,37 +376,6 @@ public class StringUtil {
 	}
 
 	/**
-	 * 将 Strig 进行 BASE64 编码
-	 * 
-	 * @param str [要编码的字符串]
-	 * @param bf [true|false,true:去掉结尾补充的'=',false:不做处理]
-	 * @return
-	 */
-	public static String getBASE64(String str, boolean... bf) {
-		if (StringUtils.isBlank(str))
-			return null;
-		String base64 = new sun.misc.BASE64Encoder().encode(str.getBytes());
-		// 去掉 '='
-		if (isBlank(bf) && bf[0]) {
-			base64 = base64.replaceAll("=", "");
-		}
-		return base64;
-	}
-
-	/** 将 BASE64 编码的字符串 s 进行解码 **/
-	public static String getStrByBASE64(String s) {
-		if (isBlank(s))
-			return "";
-		BASE64Decoder decoder = new BASE64Decoder();
-		try {
-			byte[] b = decoder.decodeBuffer(s);
-			return new String(b);
-		} catch (Exception e) {
-			return "";
-		}
-	}
-
-	/**
 	 * 把Map转换成get请求参数类型,如 {"name"=20,"age"=30} 转换后变成 name=20&age=30
 	 * 
 	 * @param map
@@ -620,12 +591,6 @@ public class StringUtil {
 		return set;
 	}
 
-	/**
-	 * serializable toString
-	 * 
-	 * @param serializable
-	 * @return
-	 */
 	public static String toString(Serializable serializable) {
 		if (null == serializable) {
 			return null;
@@ -635,5 +600,24 @@ public class StringUtil {
 		} catch (Exception e) {
 			return serializable.toString();
 		}
+	}
+
+	public static String toDecimalString(BigDecimal dc) {
+		if (isBlank(dc)) {
+			return "0.00";
+		}
+		DecimalFormat df = new DecimalFormat("0.00");
+		return df.format(dc);
+	}
+
+	public static String getUUID() {
+		return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+	}
+
+	public static String getDbName(String userName) {
+		if (userName.startsWith("cn")) {
+			return Enums.DbName.CN.getName();
+		}
+		return Enums.DbName.TW.getName();
 	}
 }

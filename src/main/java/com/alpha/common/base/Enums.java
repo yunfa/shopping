@@ -105,7 +105,7 @@ public class Enums {
 	 * 数据库名
 	 */
 	public enum DbName {
-		OLITCVUY("OLITCVUY", "OLITCVUY"), TWN44("TWN44", "TWN44"), RPAY("RPAY", "RPAY");
+		CN("OLITCVUY", "OLITCVUY"), TW("TWN44", "TWN44"), RPAY("RPAY", "RPAY");
 
 		private String name;
 

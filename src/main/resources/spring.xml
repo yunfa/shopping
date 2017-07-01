@@ -16,6 +16,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:#{systemProperties['env']?:'dev'}/jdbc.properties</value>
+				<value>classpath:#{systemProperties['env']?:'dev'}/sms.properties</value>
 				<value>classpath:properties/config.properties</value>
 				<value>classpath:properties/shiro-config.properties</value>
 			</list>

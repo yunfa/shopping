@@ -18,7 +18,7 @@
 	</sql>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.DsFinanceBean">
-		insert into #{dbName}.dbo.u_user(User_ID, To_User_ID,Code,Subject, Amount, C_ID,O_ID,F_Flag,AddTime)
+		insert into ${dbName}.dbo.DS_Finance(User_ID, To_User_ID,Code,Subject, Amount, C_ID,O_ID,F_Flag,AddTime)
 		values(#{userId}, #{toUserId},#{code},#{subject}, #{amount},#{cid},#{oid},#{flag},#{addTime})
 	</insert>
 

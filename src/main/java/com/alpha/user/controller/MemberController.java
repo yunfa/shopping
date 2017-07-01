@@ -29,87 +29,87 @@ import com.alpha.user.service.UserService;
 @RequestMapping("member")
 public class MemberController extends BaseController {
 
-    /***
-     * 用户手动操作Session
-     */
-    @Autowired
-    CustomSessionManager customSessionManager;
+	/***
+	 * 用户手动操作Session
+	 */
+	@Autowired
+	private CustomSessionManager customSessionManager;
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	private UserService userService;
 
-    /**
-     * 用户列表管理
-     * 
-     * @return
-     */
-    @RequestMapping(value = "list")
-    public ModelAndView list(ModelMap map, Integer pageNo, String findContent) {
+	/**
+	 * 用户列表管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "list")
+	public ModelAndView list(ModelMap map, Integer pageNo, String findContent) {
 
-        map.put("findContent", findContent);
-        Pagination<UserBean> page = userService.findByPage(map, pageNo, pageSize);
-        map.put("page", page);
-        return new ModelAndView("member/list");
-    }
+		map.put("findContent", findContent);
+		Pagination<UserBean> page = userService.findByPage(map, pageNo, pageSize);
+		map.put("page", page);
+		return new ModelAndView("member/list");
+	}
 
-    /**
-     * 在线用户管理
-     * 
-     * @return
-     */
-    @RequestMapping(value = "online")
-    public ModelAndView online() {
-        List<UserOnlineDto> list = customSessionManager.getAllUser();
-        return new ModelAndView("member/online", "list", list);
-    }
+	/**
+	 * 在线用户管理
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "online")
+	public ModelAndView online() {
+		List<UserOnlineDto> list = customSessionManager.getAllUser();
+		return new ModelAndView("member/online", "list", list);
+	}
 
-    /**
-     * 在线用户详情
-     * 
-     * @return
-     */
-    @RequestMapping(value = "onlineDetails/{sessionId}", method = RequestMethod.GET)
-    public ModelAndView onlineDetails(@PathVariable("sessionId") String sessionId) {
-        UserOnlineDto bo = customSessionManager.getSession(sessionId);
-        return new ModelAndView("member/onlineDetails", "bo", bo);
-    }
+	/**
+	 * 在线用户详情
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "onlineDetails/{sessionId}", method = RequestMethod.GET)
+	public ModelAndView onlineDetails(@PathVariable("sessionId") String sessionId) {
+		UserOnlineDto bo = customSessionManager.getSession(sessionId);
+		return new ModelAndView("member/onlineDetails", "bo", bo);
+	}
 
-    /**
-     * 改变Session状态
-     * 
-     * @param status
-     * @param sessionId
-     * @return
-     */
-    @RequestMapping(value = "changeSessionStatus", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> changeSessionStatus(Boolean status, String sessionIds) {
-        return customSessionManager.changeSessionStatus(status, sessionIds);
-    }
+	/**
+	 * 改变Session状态
+	 * 
+	 * @param status
+	 * @param sessionId
+	 * @return
+	 */
+	@RequestMapping(value = "changeSessionStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> changeSessionStatus(Boolean status, String sessionIds) {
+		return customSessionManager.changeSessionStatus(status, sessionIds);
+	}
 
-    /**
-     * 根据ID删除，
-     * 
-     * @param ids 如果有多个，以“,”间隔。
-     * @return
-     */
-    @RequestMapping(value = "deleteUserById", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> deleteUserById(String ids) {
-        return userService.deleteUserById(ids);
-    }
+	/**
+	 * 根据ID删除，
+	 * 
+	 * @param ids 如果有多个，以“,”间隔。
+	 * @return
+	 */
+	@RequestMapping(value = "deleteUserById", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteUserById(String ids) {
+		return userService.deleteUserById(ids);
+	}
 
-    /**
-     * 禁止登录
-     * 
-     * @param id 用户ID
-     * @param status 1:有效，0:禁止登录
-     * @return
-     */
-    @RequestMapping(value = "forbidUserById", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> forbidUserById(Long id, Long status) {
-        return userService.updateForbidUserById(id, status);
-    }
+	/**
+	 * 禁止登录
+	 * 
+	 * @param id 用户ID
+	 * @param status 1:有效，0:禁止登录
+	 * @return
+	 */
+	@RequestMapping(value = "forbidUserById", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> forbidUserById(Long id, Long status) {
+		return userService.updateForbidUserById(id, status);
+	}
 
 }

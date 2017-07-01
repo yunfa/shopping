@@ -1,5 +1,7 @@
 package com.alpha.common.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.alpha.common.model.DsUserBean;
 
 /**
@@ -10,10 +12,13 @@ import com.alpha.common.model.DsUserBean;
  */
 public interface DsUserMapper {
 
-	DsUserBean getUserByNumber(String userNumber);
+	DsUserBean getUserByNumber(@Param("userName") String userName, @Param("dbName") String dbName);
 
-	DsUserBean getUserById(String userNumber);
+	DsUserBean getUserById(@Param("userName") String userName, @Param("dbName") String dbName);
+
+	int updateLoginPwd(DsUserBean bean);
 
 	int updateAmount(DsUserBean bean);
 
+	String getMobileByNumber(@Param("userId") Integer userId, @Param("dbName") String dbName);
 }

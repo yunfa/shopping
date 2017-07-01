@@ -8,15 +8,24 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alpha.common.base.BusException;
+import com.alpha.common.base.HttpCode;
+import com.alpha.common.model.DsUserBean;
 import com.alpha.common.utils.StringUtil;
+import com.alpha.user.dto.UserDto;
 
 /**
  * 基础Controller
@@ -105,8 +114,6 @@ public class BaseController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params = BeanUtils.describe(obj);
 		params = handleParams(params);
-		// 回填值项
-		// BeanUtils.populate(obj, params);
 		return params;
 	}
 
@@ -125,4 +132,38 @@ public class BaseController {
 		return result;
 	}
 
+	/**
+	 * 处理全局异常
+	 */
+	@ExceptionHandler(Exception.class)
+	public void exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex)
+			throws Exception {
+		ModelMap modelMap = new ModelMap();
+		modelMap.put("code", HttpCode.business_600.getName());
+		modelMap.put("desc", ex.getMessage());
+		if (ex instanceof BusException) {
+			BusException be = (BusException) ex;
+			modelMap.put("code", be.getCode());
+			modelMap.put("desc", be.getMsg());
+		} else {
+			logger.error(ex.toString(), ex);
+		}
+		response.setContentType("application/json;charset=UTF-8");
+		modelMap.put("timestamp", System.currentTimeMillis());
+		logger.info("error json:{}", JSON.toJSON(modelMap));
+		byte[] bytes = JSON.toJSONBytes(modelMap, SerializerFeature.DisableCircularReferenceDetect);
+		response.getOutputStream().write(bytes);
+	}
+
+	protected UserDto buildUserDto(DsUserBean bean) {
+		UserDto dto = new UserDto();
+		if (bean == null) {
+			return dto;
+		}
+		dto.setRhAccount(StringUtil.toDecimalString(bean.getAmount()));
+		dto.setToken(bean.getToken());
+		dto.setUserId(bean.getUserId());
+		dto.setUserName(bean.getUserName());
+		return dto;
+	}
 }

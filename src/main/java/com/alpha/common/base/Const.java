@@ -21,17 +21,12 @@ public class Const {
 
 	public static final String CONTEXT_PATH = "contextPath";
 
-	/*** 项目根路径 */
+	// 标签使用目标
+	public static final String TARGET = "target";
 
-	/*** Freemarker 使用的变量 begin **/
+	// 输出标签Name
+	public static final String OUT_TAG_NAME = "outTagName";
 
-	public static final String TARGET = "target";// 标签使用目标
-
-	public static final String OUT_TAG_NAME = "outTagName";// 输出标签Name
-
-	/*** Freemarker 使用的变量 end **/
-
-	/** 其他常用变量 begin **/
 	public static final String NAME = "name";
 
 	public static final String ID = "id";
@@ -40,7 +35,6 @@ public class Const {
 
 	public static final String LOING_USER = "loing_user";
 
-	/** Long */
 	public static final Long ZERO = new Long(0);
 
 	public static final Long ONE = new Long(1);
@@ -51,7 +45,6 @@ public class Const {
 
 	public static final Long EIGHT = new Long(8);
 
-	/** String */
 	public static final String S_ZERO = "0";
 
 	public static final String S_ONE = "1";
@@ -60,7 +53,6 @@ public class Const {
 
 	public static final String S_THREE = "3";
 
-	/** Integer */
 	public static final Integer I_ZERO = 0;
 
 	public static final Integer I_ONE = 1;
@@ -69,25 +61,34 @@ public class Const {
 
 	public static final Integer I_THREE = 3;
 
-	/** 其他常用变量 end **/
-
-	/** cache常用变量 begin **/
 	public static final String CACHE_NAME = "shiro_cache";
 
-	public static final String CACHE_MANAGER = "cacheManager";// cacheManager bean name
+	public static final String CACHE_MANAGER = "cacheManager";
 
-	/** cache常用变量 end **/
-
-	/** 当前年份 **/
+	// 当前年份
 	public static final int NOW_YEAY = Calendar.getInstance().get(Calendar.YEAR);
 
-	/** 地址 **/
-	public static final String DOMAIN_WWW = IConfig.get("domain.www");// 前端域名
+	// 地址前端域名
+	public static final String DOMAIN_WWW = IConfig.get("domain.www");
 
-	public static final String DOMAIN_CDN = IConfig.get("domain.cdn");// 后台域名
+	// 后台域名
+	public static final String DOMAIN_CDN = IConfig.get("domain.cdn");
+	// 版本号，重启的时间
 
-	public static String VERSION = DateUtil.dateToStringWithTime();// 版本号，重启的时间
+	public static String VERSION = DateUtil.dateToStringWithTime();
 
 	// 存储到缓存，标识用户的禁止状态，解决在线用户踢出的问题
 	final public static String EXECUTE_CHANGE_USER = "alpha_EXECUTE_CHANGE_USER";
+
+	public static String smsCodeKeyPrefix = "sms:";
+
+	public static String userTokenKeyPrefix = "user:";
+
+	// 短信验证码超时时间，秒
+	public static int redisExpireTime = 60 * 10;
+
+	// redis最大时间
+	public static int redisExpireTimeMax = 0;
+
+	public static int redisDbIndex = 0;
 }

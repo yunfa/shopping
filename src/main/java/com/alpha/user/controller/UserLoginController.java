@@ -118,17 +118,12 @@ public class UserLoginController extends BaseController {
 			resultMap.put("status", 200);
 			resultMap.put("message", "登录成功");
 
-			/**
-			 * shiro 获取登录之前的地址 之前0.1版本这个没判断空。
-			 */
+			// shiro 获取登录之前的地址 之前0.1版本这个没判断空。
 			SavedRequest savedRequest = WebUtils.getSavedRequest(request);
 			String url = null;
 			if (null != savedRequest) {
 				url = savedRequest.getRequestUrl();
 			}
-			/**
-			 * 我们平常用的获取上一个请求的方式，在Session不一致的情况下是获取不到的 String url = (String) request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
-			 */
 			logger.debug("获取登录之前的URL:{}", url);
 			// 如果登录之前没有地址，那么就跳转到首页。
 			if (StringUtil.isBlank(url) || "/".equals(url)) {

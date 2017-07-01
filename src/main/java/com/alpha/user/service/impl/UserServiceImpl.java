@@ -37,7 +37,7 @@ import com.google.common.collect.Lists;
 @Service
 public class UserServiceImpl extends BaseMybatisDao<UserMapper> implements UserService {
 
-	private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	/***
 	 * 用户手动操作Session
