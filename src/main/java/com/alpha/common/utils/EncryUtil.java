@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * spoon密码加密算法
+ * 
  * @author Li Yunfa
  * @date 2017年6月20日
  */
@@ -44,12 +46,6 @@ public class EncryUtil {
 	}
 
 	public static void main(String[] args) {
-		// 123456
-		// Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c
-		// odsuser
-		// Encrypted 2be98afc86aa7f2e4cb16aa63cb81aac8
-		// Lls16888appuser
-		// Encrypted 2bed4c3bb5b91cadcf318be60cb81aac8
 		logger.debug("Encrypted " + encryptPassword("Lls16888appuser"));
 		logger.debug(decryptPassword("2bed4c3bb5b91cadcf318be60cb81aac8"));
 	}
