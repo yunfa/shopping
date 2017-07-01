@@ -57,6 +57,15 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 		if (user == null) {
 			throw new BusException("用户:" + userName + "不存在!");
 		}
+		String userFlag = user.getUserFlag();
+		if (Enums.UserFlag.F0.getName().equals(userFlag)) {
+			// 0:用户未激活 提示用户 到我们登录官网处理!
+			throw new BusException("用户状态未激活,请登录官网处理!");
+		}
+		if (Enums.UserFlag.F4.getName().equals(userFlag)) {
+			// 4:您的帐号出现异常，已被禁止登录！
+			throw new BusException("您的帐号出现异常,已被禁止登录!");
+		}
 		Integer userId = user.getUserId();
 		String mobile = dsUserMapper.getMobileByNumber(userId, dbName);
 		logger.info("mobile:{}", mobile);
