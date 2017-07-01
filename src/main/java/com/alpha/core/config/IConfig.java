@@ -6,15 +6,13 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alpha.common.utils.StringUtils;
-
 /**
  * @author Li Yunfa
  * @date 2017年6月21日
  */
 public class IConfig {
 
-	private static Logger logger = LoggerFactory.getLogger(StringUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(IConfig.class);
 
 	/**
 	 * 同步锁

@@ -5,9 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alpha.common.model.PermissionBean;
 import com.alpha.common.model.RoleBean;
 import com.alpha.common.model.UserBean;
@@ -18,8 +15,6 @@ import com.alpha.common.utils.MathUtil;
  * @date 2017年6月21日
  */
 public class UserManager {
-
-	private static Logger logger = LoggerFactory.getLogger(UserManager.class);
 
 	/**
 	 * 加工密码，和登录一致。
@@ -78,9 +73,4 @@ public class UserManager {
 		return resultData;
 
 	}
-
-	public static void main(String[] args) {
-		logger.debug(md5Pswd("admin", "admin"));
-	}
-
 }

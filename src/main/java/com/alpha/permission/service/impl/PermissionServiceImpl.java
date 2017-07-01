@@ -16,10 +16,10 @@ import com.alpha.common.dao.UserMapper;
 import com.alpha.common.dao.UserRoleMapper;
 import com.alpha.common.model.PermissionBean;
 import com.alpha.common.model.RolePermissionBean;
-import com.alpha.common.utils.StringUtils;
+import com.alpha.common.utils.StringUtil;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.mybatis.page.Pagination;
-import com.alpha.core.shiro.token.manager.TokenManager;
+import com.alpha.core.shiro.token.TokenManager;
 import com.alpha.permission.bo.PermissionBo;
 import com.alpha.permission.service.PermissionService;
 
@@ -86,7 +86,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<PermissionMapper> impl
 			int successCount = 0, errorCount = 0;
 			String resultMsg = "删除%s条，失败%s条";
 			String[] idArray = new String[] {};
-			if (StringUtils.contains(ids, ",")) {
+			if (ids.contains(",")) {
 				idArray = ids.split(",");
 			} else {
 				idArray = new String[] { ids };
@@ -148,11 +148,10 @@ public class PermissionServiceImpl extends BaseMybatisDao<PermissionMapper> impl
 		int count = 0;
 		try {
 			// 如果ids,permission 的id 有值，那么就添加。没值象征着：把这个角色（roleId）所有权限取消。
-			if (StringUtils.isNotBlank(ids)) {
+			if (StringUtil.isNotBlank(ids)) {
 				String[] idArray = null;
 
-				// 这里有的人习惯，直接ids.split(",") 都可以，我习惯这么写。清楚明了。
-				if (StringUtils.contains(ids, ",")) {
+				if (ids.contains(",")) {
 					idArray = ids.split(",");
 				} else {
 					idArray = new String[] { ids };
@@ -160,7 +159,7 @@ public class PermissionServiceImpl extends BaseMybatisDao<PermissionMapper> impl
 				// 添加新的。
 				for (String pid : idArray) {
 					// 这里严谨点可以判断，也可以不判断。这个{@link StringUtils 我是重写了的}
-					if (StringUtils.isNotBlank(pid)) {
+					if (StringUtil.isNotBlank(pid)) {
 						RolePermissionBean entity = new RolePermissionBean(roleId, new Long(pid));
 						count += rolePermissionMapper.insertSelective(entity);
 					}

@@ -17,9 +17,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alpha.common.base.Const;
 import com.alpha.common.model.UserBean;
-import com.alpha.common.utils.Const;
-import com.alpha.core.shiro.token.manager.TokenManager;
 import com.alpha.permission.service.PermissionService;
 import com.alpha.permission.service.RoleService;
 import com.alpha.user.service.UserService;

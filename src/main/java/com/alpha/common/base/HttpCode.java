@@ -1,4 +1,4 @@
-package com.alpha.common.utils;
+package com.alpha.common.base;
 
 /**
  * Http返回结果

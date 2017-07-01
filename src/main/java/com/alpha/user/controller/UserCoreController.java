@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.alpha.common.controller.BaseController;
 import com.alpha.common.model.UserBean;
-import com.alpha.core.shiro.token.manager.TokenManager;
+import com.alpha.core.shiro.token.TokenManager;
 import com.alpha.user.manager.UserManager;
 import com.alpha.user.service.UserService;
 

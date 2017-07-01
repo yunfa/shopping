@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alpha.common.utils.CollectionUtils;
-import com.alpha.common.utils.StringUtils;
+import com.alpha.common.utils.StringUtil;
 import com.alpha.core.mybatis.page.MysqlDialect;
 import com.alpha.core.mybatis.page.Pagination;
 
@@ -115,7 +115,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 		String sqlcode = boundSql.getSql();
 		String countCode = "";
 		BoundSql countSql = null;
-		if (StringUtils.isBlank(countId)) {
+		if (StringUtil.isBlank(countId)) {
 			countCode = sqlcode;
 			countSql = boundSql;
 		} else {
@@ -199,7 +199,7 @@ public class BaseMybatisDao<T> extends SqlSessionDaoSupport {
 	 */
 	private PreparedStatement getPreparedStatement4Count(String sql, List<ParameterMapping> parameterMappingList,
 			Map<String, Object> params, Connection conn) throws SQLException {
-		PreparedStatement ps = conn.prepareStatement(StringUtils.trim(sql));
+		PreparedStatement ps = conn.prepareStatement(StringUtil.trim(sql));
 		int index = 1;
 		for (int i = 0; i < parameterMappingList.size(); i++) {
 			ps.setObject(index++, params.get(parameterMappingList.get(i).getProperty()));

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alpha.common.dao.DsUserMapper">
+	<resultMap id="BaseResultMap" type="com.alpha.common.model.DsUserBean">
+		<id column="id" property="userId" jdbcType="INTEGER" />
+		<result column="U_Number" property="userNumber" jdbcType="VARCHAR" />
+		<result column="U_1st_Password" property="userPwd1" jdbcType="VARCHAR" />
+		<result column="U_3rd_Password" property="userPwd3" jdbcType="VARCHAR" />
+		<result column="U_Account_Total_5" property="amount" jdbcType="DECIMAL" />
+		<result column="U_Flag" property="userFlag" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, U_Number, U_1st_Password, U_3rd_Password, U_Account_Total_5, U_Flag
+	</sql>
+
+	<!-- 登录 -->
+	<select id="getUserByNumber" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from #{dbName}.dbo.u_user
+		where U_Number = #{userNumber}
+	</select>
+
+	<select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from #{dbName}.dbo.u_user
+		where id = #{userId}
+	</select>
+
+	<update id="updateAmount" parameterType="com.alpha.common.model.DsUserBean">
+		update #{dbName}.dbo.u_user
+		U_Account_Total_5 = #{amount}
+		where id = #{userId}
+	</update>
+
+</mapper>

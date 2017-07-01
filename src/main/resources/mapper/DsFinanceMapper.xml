@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alpha.common.dao.DsFinanceMapper">
+	<resultMap id="BaseResultMap" type="com.alpha.common.model.DsFinanceBean">
+		<result column="User_ID" property="userId" jdbcType="INTEGER" />
+		<result column="To_User_ID" property="toUserId" jdbcType="INTEGER" />
+		<result column="Code" property="code" jdbcType="VARCHAR" />
+		<result column="Subject" property="subject" jdbcType="VARCHAR" />
+		<result column="Amount" property="amount" jdbcType="DECIMAL" />
+		<result column="C_ID" property="cid" jdbcType="INTEGER" />
+		<result column="O_ID" property="oid" jdbcType="INTEGER" />
+		<result column="F_Flag" property="flag" jdbcType="INTEGER" />
+		<result column="AddTime" property="addTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		User_ID, To_User_ID, Code, Subject, Amount, C_ID, O_ID, F_Flag, AddTime
+	</sql>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.alpha.common.model.DsFinanceBean">
+		insert into #{dbName}.dbo.u_user(User_ID, To_User_ID,Code,Subject, Amount, C_ID,O_ID,F_Flag,AddTime)
+		values(#{userId}, #{toUserId},#{code},#{subject}, #{amount},#{cid},#{oid},#{flag},#{addTime})
+	</insert>
+
+</mapper>

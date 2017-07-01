@@ -18,7 +18,7 @@ import com.alpha.common.model.RoleBean;
 import com.alpha.common.utils.CollectionUtils;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.mybatis.page.Pagination;
-import com.alpha.core.shiro.token.manager.TokenManager;
+import com.alpha.core.shiro.token.TokenManager;
 import com.alpha.permission.bo.RolePermissionAllocationBo;
 import com.alpha.permission.service.RoleService;
 import com.google.common.collect.Lists;

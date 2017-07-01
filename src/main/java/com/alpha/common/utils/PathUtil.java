@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public class UtilPath {
+public class PathUtil {
 
     /**
      * 获取到classes目录
@@ -26,9 +26,9 @@ public class UtilPath {
 
         //判断当前环境，如果是Windows 要截取路径的第一个 '/'
         if (!StringUtils.isBlank(systemName) && systemName.indexOf("Windows") != -1) {
-            return UtilPath.class.getResource("/").getFile().toString().substring(1);
+            return PathUtil.class.getResource("/").getFile().toString().substring(1);
         } else {
-            return UtilPath.class.getResource("/").getFile().toString();
+            return PathUtil.class.getResource("/").getFile().toString();
         }
     }
 

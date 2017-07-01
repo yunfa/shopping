@@ -19,7 +19,7 @@ import com.alpha.common.utils.CollectionUtils;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.mybatis.page.Pagination;
 import com.alpha.core.shiro.session.CustomSessionManager;
-import com.alpha.core.shiro.token.manager.TokenManager;
+import com.alpha.core.shiro.token.TokenManager;
 import com.alpha.permission.bo.URoleBo;
 import com.alpha.permission.bo.UserRoleAllocationBo;
 import com.alpha.user.service.UserService;

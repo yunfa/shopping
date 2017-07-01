@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.alpha.core.shiro.cache.VCache;
 import com.alpha.core.shiro.session.ShiroSessionRepository;
-import com.alpha.core.shiro.token.manager.TokenManager;
+import com.alpha.core.shiro.token.TokenManager;
 
 /**
  * @author Li Yunfa

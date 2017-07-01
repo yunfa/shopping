@@ -2,7 +2,7 @@ package com.alpha.core.tags;
 
 import java.util.Map;
 
-import com.alpha.common.utils.StringUtils;
+import com.alpha.common.utils.StringUtil;
 
 /**
  * @author Li Yunfa
@@ -26,16 +26,16 @@ public abstract class SuperCustomTag {
 	 */
 	protected Long getLong(Map params, String key) {
 		Object i = params.get(key);
-		return StringUtils.isBlank(i) ? null : new Long(i.toString());
+		return StringUtil.isBlank(i) ? null : new Long(i.toString());
 	}
 
 	protected String getString(Map params, String key) {
 		Object i = params.get(key);
-		return StringUtils.isBlank(i) ? null : i.toString();
+		return StringUtil.isBlank(i) ? null : i.toString();
 	}
 
 	protected Integer getInt(Map params, String key) {
 		Object i = params.get(key);
-		return StringUtils.isBlank(i) ? null : Integer.parseInt(i.toString());
+		return StringUtil.isBlank(i) ? null : Integer.parseInt(i.toString());
 	}
 }

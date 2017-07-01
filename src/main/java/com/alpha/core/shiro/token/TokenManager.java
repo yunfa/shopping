@@ -1,4 +1,4 @@
-package com.alpha.core.shiro.token.manager;
+package com.alpha.core.shiro.token;
 
 import java.util.List;
 
@@ -9,8 +9,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import com.alpha.common.model.UserBean;
 import com.alpha.common.utils.SpringContextUtil;
 import com.alpha.core.shiro.session.CustomSessionManager;
-import com.alpha.core.shiro.token.SampleRealm;
-import com.alpha.core.shiro.token.ShiroToken;
 
 /**
  * Shiro管理下的Token工具类
