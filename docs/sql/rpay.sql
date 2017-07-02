@@ -72,8 +72,8 @@ CREATE TABLE [dbo].[r_finance](
 	[create_time] [datetime] NOT NULL,
  CONSTRAINT [pk_finance_id] PRIMARY KEY CLUSTERED 
 ([finance_id] ASC)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]) ON [PRIMARY];
-create index idx_user_id on r_finance(user_id);
-create index idx_to_user_id on r_finance(to_user_id);
+create index idx_user_name on r_finance(user_name);
+create index idx_to_user_name on r_finance(to_user_name);
 
 
 
