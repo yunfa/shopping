@@ -1,5 +1,7 @@
 package com.alpha.user.service.impl;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.alpha.common.utils.PwdUtil;
 import com.alpha.common.utils.StringUtil;
 import com.alpha.core.mybatis.BaseMybatisDao;
 import com.alpha.core.shiro.cache.JedisManager;
+import com.alpha.core.shiro.service.impl.PropertiesService;
 import com.alpha.user.service.DsUserService;
 
 /**
@@ -32,16 +35,19 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 	@Autowired
 	private JedisManager jedisManage;
 
+	@Autowired
+	private PropertiesService propertiesService;
+
 	@Override
 	public boolean sendCode(String userName) throws BusException {
 		String dbName = StringUtil.getDbName(userName);
-		DsUserBean user = dsUserMapper.getUserByNumber(userName, dbName);
+		DsUserBean user = dsUserMapper.getUserByName(userName, dbName);
 		logger.info("user:{}", user);
 		if (user == null) {
 			throw new BusException("用户:" + userName + "不存在!");
 		}
 		Integer userId = user.getUserId();
-		String mobile = dsUserMapper.getMobileByNumber(userId, dbName);
+		String mobile = dsUserMapper.getMobileByUserId(userId, dbName);
 		logger.info("mobile:{}", mobile);
 		if (StringUtil.isBlank(mobile)) {
 			throw new BusException("您还没有设置手机号码!");
@@ -52,7 +58,7 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 	@Override
 	public DsUserBean login(String userName, String userPwd, String verifyCode) throws BusException {
 		String dbName = StringUtil.getDbName(userName);
-		DsUserBean user = dsUserMapper.getUserByNumber(userName, dbName);
+		DsUserBean user = dsUserMapper.getUserByName(userName, dbName);
 		logger.info("user:{}", user);
 		if (user == null) {
 			throw new BusException("用户:" + userName + "不存在!");
@@ -67,7 +73,7 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 			throw new BusException("您的帐号出现异常,已被禁止登录!");
 		}
 		Integer userId = user.getUserId();
-		String mobile = dsUserMapper.getMobileByNumber(userId, dbName);
+		String mobile = dsUserMapper.getMobileByUserId(userId, dbName);
 		logger.info("mobile:{}", mobile);
 		String verifyCodeCache = getVerifyCode(mobile);
 		logger.info("verifyCodeCache:{}", verifyCodeCache);
@@ -100,13 +106,13 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 	@Override
 	public boolean updatePwd(String userName, String userPwd, String verifyCode) throws BusException {
 		String dbName = StringUtil.getDbName(userName);
-		DsUserBean user = dsUserMapper.getUserByNumber(userName, dbName);
+		DsUserBean user = dsUserMapper.getUserByName(userName, dbName);
 		logger.info("user:{}", user);
 		if (user == null) {
 			throw new BusException("用户:" + userName + "不存在!");
 		}
 		Integer userId = user.getUserId();
-		String mobile = dsUserMapper.getMobileByNumber(userId, dbName);
+		String mobile = dsUserMapper.getMobileByUserId(userId, dbName);
 		logger.info("mobile:{}", mobile);
 		String verifyCodeCache = getVerifyCode(mobile);
 		logger.info("verifyCodeCache:{}", verifyCodeCache);
@@ -128,6 +134,9 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 
 	private boolean sendVerifyCode(String mobile) {
 		String code = MathUtil.getRandom(4);
+		if ("dev".equals(propertiesService.getEnv())) {
+			code = "0000";
+		}
 		logger.info("verify code:{}", code);
 		String key = Const.smsCodeKeyPrefix + mobile;
 		try {
@@ -143,11 +152,28 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 		String key = Const.smsCodeKeyPrefix + mobile;
 		String code = "";
 		try {
-			code = new String(jedisManage.getValueByKey(Const.redisDbIndex, key.getBytes()));
+			byte[] valueByKey = jedisManage.getValueByKey(Const.redisDbIndex, key.getBytes());
+			code = valueByKey == null ? "" : new String(valueByKey);
 		} catch (Exception e) {
 			logger.error("获取redis短信验证码出错", e);
 		}
 		return code;
+	}
+
+	@Override
+	public DsUserBean getUserByName(String userName) {
+		String dbName = StringUtil.getDbName(userName);
+		return dsUserMapper.getUserByName(userName, dbName);
+	}
+
+	@Override
+	public boolean updateAmount(String userName, BigDecimal amount) {
+		DsUserBean bean = new DsUserBean();
+		String dbName = StringUtil.getDbName(userName);
+		bean.setAmount(amount);
+		bean.setUserName(userName);
+		bean.setDbName(dbName);
+		return dsUserMapper.updateAmount(bean) > 0;
 	}
 
 }

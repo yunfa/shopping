@@ -35,7 +35,65 @@ CREATE TABLE u_user (
 insert  into u_user(id,nickname,email,pswd,create_time,last_login_time,status) values (1,'管理员','admin','57dd03ed397eabaeaa395eb740b770fd','2016-06-16 11:15:33','2017-02-04 08:55:11',1),(11,'soso','8446666@qq.com','d57ffbe486910dd5b26d0167d034f9ad','2016-05-26 20:50:54','2016-06-16 11:24:35',1),(12,'8446666','8446666','4afdc875a67a55528c224ce088be2ab8','2016-05-27 22:34:19','2016-06-15 17:03:16',1);
 
 CREATE TABLE u_user_role (
-  uid int DEFAULT NULL,
-  rid int DEFAULT NULL
+  uid int DEFAULT 0,
+  rid int DEFAULT 0
 );
 insert  into u_user_role(uid,rid) values (12,4),(11,3),(11,4),(1,1);
+
+
+/*以下为业务相关表*/
+CREATE TABLE r_order (
+  order_id varchar(20) NOT NULL,
+  user_name [varchar](254)  NOT NULL DEFAULT 0,
+  amount numeric(18,2) NOT NULL DEFAULT 0,
+  create_time datetime DEFAULT NULL,
+  update_time datetime DEFAULT NULL,
+  PRIMARY KEY (order_id)
+);
+create index idx_user_name on r_order(user_name);
+
+CREATE TABLE r_order_detail (
+  order_id varchar(20) NOT NULL,
+  goods_id int  NOT NULL DEFAULT 0,
+  goods_name varchar(200)  NOT NULL DEFAULT '',
+  goods_num int  NOT NULL DEFAULT 0,
+  per_amount numeric(18,2)  NOT NULL DEFAULT 0,
+  PRIMARY KEY (order_id,goods_id)
+);
+create index idx_order_id on r_order_detail(order_id);
+
+CREATE TABLE [dbo].[r_finance](
+	[finance_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_name] [varchar](254) NOT NULL DEFAULT 0,
+	[to_user_name] [varchar](254) NOT NULL DEFAULT 0,
+	[code] [int] NOT NULL DEFAULT 0,
+	[amount] [decimal](22, 2) NOT NULL DEFAULT 0,
+	[subject] [nvarchar](50) NOT NULL DEFAULT '',
+	[create_time] [datetime] NOT NULL,
+ CONSTRAINT [pk_finance_id] PRIMARY KEY CLUSTERED 
+([finance_id] ASC)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]) ON [PRIMARY];
+create index idx_user_id on r_finance(user_id);
+create index idx_to_user_id on r_finance(to_user_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

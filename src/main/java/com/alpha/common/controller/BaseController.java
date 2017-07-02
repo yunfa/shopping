@@ -1,8 +1,10 @@
 package com.alpha.common.controller;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -24,8 +26,14 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alpha.common.base.BusException;
 import com.alpha.common.base.HttpCode;
 import com.alpha.common.model.DsUserBean;
+import com.alpha.common.model.FinanceBean;
+import com.alpha.common.model.OrderDetailBean;
+import com.alpha.common.utils.CollectionUtils;
 import com.alpha.common.utils.StringUtil;
+import com.alpha.order.dto.OrderDetailDto;
+import com.alpha.transfer.dto.TransterDto;
 import com.alpha.user.dto.UserDto;
+import com.google.common.collect.Lists;
 
 /**
  * 基础Controller
@@ -49,23 +57,10 @@ public class BaseController {
 
 	protected String pageSizeName = "pageSize";
 
-	/**
-	 * 往Request里带值
-	 * 
-	 * @param request
-	 * @param key
-	 * @param value
-	 */
 	protected static void setValue2Request(HttpServletRequest request, String key, Object value) {
 		request.setAttribute(key, value);
 	}
 
-	/**
-	 * [获取session]
-	 * 
-	 * @param request
-	 * @return
-	 */
 	public static HttpSession getSession(HttpServletRequest request) {
 		return request.getSession();
 	}
@@ -86,10 +81,10 @@ public class BaseController {
 		BaseController.pageSize = pageSize;
 	}
 
-	public ModelAndView redirect(String redirectUrl, Map<String, Object>... parament) {
+	public ModelAndView redirect(String redirectUrl, Map<String, Object> parament) {
 		ModelAndView view = new ModelAndView(new RedirectView(redirectUrl));
-		if (null != parament && parament.length > 0) {
-			view.addAllObjects(parament[0]);
+		if (null != parament && parament.size() > 0) {
+			view.addAllObjects(parament);
 		}
 		return view;
 	}
@@ -165,5 +160,39 @@ public class BaseController {
 		dto.setUserId(bean.getUserId());
 		dto.setUserName(bean.getUserName());
 		return dto;
+	}
+
+	protected List<OrderDetailDto> buildOrderDetailDto(List<OrderDetailBean> beanList) {
+		List<OrderDetailDto> dtoList = Lists.newArrayList();
+		if (CollectionUtils.isEmpty(beanList)) {
+			return null;
+		}
+		for (OrderDetailBean bean : beanList) {
+			OrderDetailDto dto = new OrderDetailDto();
+			dto.setGoodsName(bean.getGoodsName());
+			dto.setGoodsNum(bean.getGoodsNum());
+			DecimalFormat format = new DecimalFormat("0.00");
+			dto.setGoodsPrice(format.format(bean.getPerAmount()));
+			dto.setOrderId(bean.getOrderId());
+			dto.setOrderTime(bean.getOrderBean().getCreateTime().getTime());
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+
+	protected List<TransterDto> buildFinanceDto(List<FinanceBean> beanList) {
+		List<TransterDto> dtoList = Lists.newArrayList();
+		if (CollectionUtils.isEmpty(beanList)) {
+			return null;
+		}
+		for (FinanceBean bean : beanList) {
+			TransterDto dto = new TransterDto();
+			dto.setDealTime(bean.getCreateTime().getTime());
+			DecimalFormat df = new DecimalFormat("0.00");
+			dto.setPerAmount(df.format(bean.getAmount()));
+			dto.setRecordName(bean.getSubject());
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 }

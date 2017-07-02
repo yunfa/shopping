@@ -8,6 +8,8 @@ package com.alpha.common.base;
  */
 public enum HttpCode {
 	success_200("200", "成功!"), //
+	error_300("300", "重新登录!"), //
+	error_400("400", "没有权限!"), //
 	error_500("500", "系统内部错误!"), //
 	business_600("600", "业务错误!");//
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alpha.common.dao.ROrderDetailMapper">
+	<resultMap id="BaseResultMap" type="com.alpha.common.model.OrderDetailBean">
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+		<result column="per_amount" property="perAmount" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		order_id, goods_id, goods_name, goods_num, per_amount
+	</sql>
+
+	<select id="getListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from r_order_detail
+		where order_id = #{orderId}
+	</select>
+	
+	<select id="getListByOrderIds" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from r_order_detail
+		where order_id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		#{item}
+		</foreach>
+	</select>
+
+	<insert id="insert" parameterType="com.alpha.common.model.OrderDetailBean">
+		insert into r_order_detail (order_id, goods_id, goods_name, goods_num, per_amount)
+		values (#{orderId}, #{goodsId},#{goodsName},#{goodsNum}, #{perAmount})
+	</insert>
+
+</mapper>

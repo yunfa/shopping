@@ -5,16 +5,16 @@
 	
 	url:https://www.rpay66.com/app/transfer_funds.shtml
 	
-	parameter:userId=888&token=jfakljdfaldj
-	payUserId(付款方userId),
-	receiveUserId(收款方userId),
+	parameter:userName=cnuser&token=jfakljdfaldj
+	payUserName(付款方userName),
+	receiveUserName(收款方userName),
 	perAmount(一次转账金额),
 	transferType(转账类型,01付款，02收款)
 
 ## 链接示例
-    https://www.rpay66.com/app/transfer_funds.shtml?userId=888&token=jfakljdfaldj&payUserId=888&receiveUserId=999&perAmount=110&transferType=01
-    https://www.rpay66.com/app/transfer_funds.shtml?userId=888&token=jfakljdfaldj&payUserId=888&receiveUserId=999&perAmount=110&transferType=01
-    https://www.rpay66.com/app/transfer_funds.shtml?userId=888&token=jfakljdfaldj&payUserId=888&receiveUserId=999&perAmount=110&transferType=01
+    https://www.rpay66.com/app/transfer_funds.shtml?userName=cnuser&token=jfakljdfaldj&payUserName=cnuser&receiveUserName=twuser&perAmount=110&transferType=01
+    https://www.rpay66.com/app/transfer_funds.shtml?userName=cnuser&token=jfakljdfaldj&payUserName=cnuser&receiveUserName=twuser&perAmount=110&transferType=01
+    https://www.rpay66.com/app/transfer_funds.shtml?userName=cnuser&token=jfakljdfaldj&payUserName=cnuser&receiveUserName=twuser&perAmount=110&transferType=01
     
 ## 返回参数
 	{

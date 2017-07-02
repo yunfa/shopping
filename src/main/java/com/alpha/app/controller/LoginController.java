@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,7 @@ public class LoginController extends BaseController {
 	 * @return
 	 * @throws BusException
 	 */
-	@RequestMapping("/send_code")
+	@RequestMapping(value = "/send_code", method = RequestMethod.POST)
 	public HttpResult<?> sendCode(@RequestParam String userName) throws BusException {
 		logger.info("userName={}", userName);
 		dsUserService.sendCode(userName);
@@ -49,7 +50,7 @@ public class LoginController extends BaseController {
 	 * @return
 	 * @throws BusException
 	 */
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public HttpResult<?> login(@RequestParam String userName, @RequestParam String userPwd,
 			@RequestParam String verifyCode) throws BusException {
 		logger.info("userName={},userPwd={},verifyCode={}", userName, userPwd, verifyCode);
@@ -60,12 +61,11 @@ public class LoginController extends BaseController {
 	/**
 	 * 修改密码
 	 * 
-	 * @RequestParam(value = "notIncludeTypeId", required = false)
 	 * @param request
 	 * @return
 	 * @throws BusException
 	 */
-	@RequestMapping("/update_pwd")
+	@RequestMapping(value = "/update_pwd", method = RequestMethod.POST)
 	public HttpResult<?> updatePwd(@RequestParam(required = true) String userName, @RequestParam String userPwd,
 			@RequestParam String verifyCode) throws BusException {
 		logger.info("userName={},userPwd={},verifyCode={}", userName, userPwd, verifyCode);

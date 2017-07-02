@@ -16,12 +16,12 @@
 
 	<!-- 会话Cookie模板 -->
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-		<!--cookie的name，我故意取名叫xxxxbaidu -->
+		<!--cookie的name -->
 		<constructor-arg value="v_v-s-baidu" />
 		<property name="httpOnly" value="true" />
 		<!--cookie的有效时间 -->
 		<property name="maxAge" value="-1" />
-		<!-- 配置存储Session Cookie的domain为 一级域名 <property name="domain" value=".itboy.net"/> -->
+		<!-- 配置存储Session Cookie的domain为 一级域名 <property name="domain" value=".rpay66.com"/> -->
 	</bean>
 	<!-- custom shiro session listener -->
 	<bean id="customSessionListener" class="com.alpha.core.shiro.listenter.CustomSessionListener">
@@ -126,18 +126,16 @@
 	</bean>
 
 	<!-- 自定义角色过滤器 支持多个角色可以访问同一个资源 eg:/home.jsp = authc,roleOR[admin,user] 用户有admin或者user角色 就可以访问 -->
-
 	<!-- 认证数据库存储 -->
 	<bean id="shiroManager" class="com.alpha.core.shiro.service.impl.ShiroManagerImpl" />
-	<bean id="login" class="com.alpha.core.shiro.filter.LoginFilter" />
-	<bean id="role" class="com.alpha.core.shiro.filter.RoleFilter" />
-	<bean id="permission" class="com.alpha.core.shiro.filter.PermissionFilter" />
-	<bean id="simple" class="com.alpha.core.shiro.filter.SimpleAuthFilter" />
+	<bean id="loginFilter" class="com.alpha.core.shiro.filter.LoginFilter" />
+	<bean id="roleFilter" class="com.alpha.core.shiro.filter.RoleFilter" />
+	<bean id="permissionFilter" class="com.alpha.core.shiro.filter.PermissionFilter" />
+	<bean id="simpleFilter" class="com.alpha.core.shiro.filter.SimpleAuthFilter" />
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/u/login.shtml" />
-		<!-- TODO 待提取 -->
 		<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/?login" />
 
@@ -145,10 +143,10 @@
 		<property name="filterChainDefinitions" value="#{shiroManager.loadFilterChainDefinitions()}" />
 		<property name="filters">
 			<util:map>
-				<entry key="login" value-ref="login"></entry>
-				<entry key="role" value-ref="role"></entry>
-				<entry key="simple" value-ref="simple"></entry>
-				<entry key="permission" value-ref="permission"></entry>
+				<entry key="login" value-ref="loginFilter"></entry>
+				<entry key="role" value-ref="roleFilter"></entry>
+				<entry key="simple" value-ref="simpleFilter"></entry>
+				<entry key="permission" value-ref="permissionFilter"></entry>
 				<entry key="kickout" value-ref="kickoutSessionFilter"></entry>
 			</util:map>
 		</property>

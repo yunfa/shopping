@@ -9,9 +9,9 @@
 	userName(登录账号),
 
 ## 链接示例
-    https://www.rpay66.com/app/send_code.shtml?userName=rpay
-    https://www.rpay66.com/app/send_code.shtml?userName=rpay
-    https://www.rpay66.com/app/send_code.shtml?userName=rpay
+    https://www.rpay66.com/app/send_code.shtml?userName=cnuser
+    https://www.rpay66.com/app/send_code.shtml?userName=cnuser
+    https://www.rpay66.com/app/send_code.shtml?userName=cnuser
     
 ## 返回参数
 	{

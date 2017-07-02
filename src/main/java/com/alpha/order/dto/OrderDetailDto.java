@@ -6,7 +6,7 @@ package com.alpha.order.dto;
  * @author Li Yunfa
  * @date 2017年6月25日
  */
-public class OrderDto {
+public class OrderDetailDto {
 
 	// 订单编号
 	private String orderId;

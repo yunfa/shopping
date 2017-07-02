@@ -5,12 +5,12 @@
 	
 	url:https://www.rpay66.com/app/my_orders.shtml
 	
-	parameter:userId=888&token=jfakljdfaldj
+	parameter:userName=cnuser&token=jfakljdfaldj
 
 ## 链接示例
-    https://www.rpay66.com/app/my_orders.shtml?userId=888&token=jfakljdfaldj
-    https://www.rpay66.com/app/my_orders.shtml?userId=888&token=jfakljdfaldj
-    https://www.rpay66.com/app/my_orders.shtml?userId=888&token=jfakljdfaldj
+    https://www.rpay66.com/app/my_orders.shtml?userName=cnuser&token=jfakljdfaldj
+    https://www.rpay66.com/app/my_orders.shtml?userName=cnuser&token=jfakljdfaldj
+    https://www.rpay66.com/app/my_orders.shtml?userName=cnuser&token=jfakljdfaldj
     
 ## 返回参数
 	{

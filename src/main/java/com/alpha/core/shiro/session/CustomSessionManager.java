@@ -47,7 +47,6 @@ public class CustomSessionManager {
 		// 获取所有session
 		Collection<Session> sessions = customShiroSessionDAO.getActiveSessions();
 		List<UserOnlineDto> list = new ArrayList<UserOnlineDto>();
-
 		for (Session session : sessions) {
 			UserOnlineDto bo = getSessionBo(session);
 			if (null != bo) {

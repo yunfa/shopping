@@ -24,6 +24,9 @@ public class PropertiesService {
 	@Value("${smscppwd}")
 	private String smscppwd = "santo201704";
 
+	@Value("${env}")
+	private String env;
+
 	public String getSmsurl() {
 		return smsurl;
 	}
@@ -54,6 +57,14 @@ public class PropertiesService {
 
 	public void setSmscppwd(String smscppwd) {
 		this.smscppwd = smscppwd;
+	}
+
+	public String getEnv() {
+		return env;
+	}
+
+	public void setEnv(String env) {
+		this.env = env;
 	}
 
 }

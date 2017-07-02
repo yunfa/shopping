@@ -72,7 +72,7 @@ public class Enums {
 	 * 财务转账状态
 	 */
 	public enum FinanceCode {
-		C500("501", "订单数据"), C502("502", "转账出账"), C503("503", "转账进账");
+		C501("501", "订单数据"), C502("502", "转账出账"), C503("503", "转账进账");
 
 		private String name;
 

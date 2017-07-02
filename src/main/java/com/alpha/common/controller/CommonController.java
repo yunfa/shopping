@@ -193,7 +193,7 @@ public class CommonController extends BaseController {
 	@RequestMapping(value = "kickedOut", method = RequestMethod.GET)
 	public ModelAndView kickedOut(HttpServletRequest request, UrlPathHelper pp) {
 		if (StringUtil.isBlank(request.getHeader("Referer"))) {
-			return redirect("/");
+			return redirect("/", null);
 		}
 		return new ModelAndView("common/kicked_out");
 	}

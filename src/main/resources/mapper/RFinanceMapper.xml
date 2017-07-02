@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alpha.common.dao.RFinanceMapper">
+	<resultMap id="BaseResultMap" type="com.alpha.common.model.FinanceBean">
+		<result column="finance_id" property="financeId" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="to_user_name" property="toUserName" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="NUMERIC" />
+		<result column="subject" property="subject" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		finance_id, user_name, to_user_name, code, amount, subject, create_time
+	</sql>
+
+	<select id="getListByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from r_finance
+		where (user_name = #{userName} or user_name = #{userName}) and code in('502','503') 
+	</select>
+
+	<insert id="insert" parameterType="com.alpha.common.model.FinanceBean">
+		insert into r_finance(user_name, to_user_name, code, amount, subject, create_time)
+		values (#{userName}, #{toUserName},#{code},#{amount}, #{subject}, #{createTime})
+	</insert>
+
+</mapper>

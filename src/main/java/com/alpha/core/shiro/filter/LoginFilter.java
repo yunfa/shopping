@@ -26,10 +26,8 @@ public class LoginFilter extends AccessControlFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
-
 		UserBean token = TokenManager.getToken();
-
-		if (null != token || isLoginRequest(request, response)) {// && isEnabled()
+		if (null != token || isLoginRequest(request, response)) {
 			return Boolean.TRUE;
 		}
 		if (ShiroFilterUtils.isAjax(request)) {// ajax请求
@@ -40,7 +38,6 @@ public class LoginFilter extends AccessControlFilter {
 			ShiroFilterUtils.out(response, resultMap);
 		}
 		return Boolean.FALSE;
-
 	}
 
 	@Override

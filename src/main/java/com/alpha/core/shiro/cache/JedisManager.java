@@ -90,8 +90,9 @@ public class JedisManager {
 			jedis = getJedis();
 			jedis.select(dbIndex);
 			jedis.set(key, value);
-			if (expireTime > 0)
+			if (expireTime > 0) {
 				jedis.expire(key, expireTime);
+			}
 		} catch (Exception e) {
 			isBroken = true;
 			throw e;

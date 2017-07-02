@@ -620,4 +620,11 @@ public class StringUtil {
 		}
 		return Enums.DbName.TW.getName();
 	}
+
+	public static boolean equalsDb(String userName1, String userName2) {
+		if (isBlank(userName1) || isBlank(userName2)) {
+			return false;
+		}
+		return userName1.substring(0, 2).equalsIgnoreCase(userName2.substring(0, 2));
+	}
 }

@@ -8,8 +8,12 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	<context:component-scan base-package="com.alpha.*.service;com.alpha.*.*.service" />
-	<context:component-scan base-package="com.alpha.common.timer" />
+	<!-- 注册注解配置 -->
+	<context:annotation-config />
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.alpha.*" />
+	<!-- 开启切面代理 使得spring认识 @Aspect -->
+	<aop:aspectj-autoproxy />
 
 	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
 		<property name="resultSetLogEnabled" value="true" />
@@ -56,13 +60,16 @@
 		<property name="basePackage" value="com.alpha.common.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
+
+	<!-- 保证事务一致性 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="publish*" />
+			<tx:method name="transfer*" />
+			<tx:method name="buy*" />
 			<tx:method name="save*" />
 			<tx:method name="add*" />
 			<tx:method name="update*" />
@@ -74,7 +81,6 @@
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	
 	<aop:config>
 		<aop:pointcut id="myPointcut" expression="execution(public * com.alpha.*.service.impl.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />

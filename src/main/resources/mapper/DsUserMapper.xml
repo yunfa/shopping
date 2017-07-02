@@ -15,7 +15,7 @@
 	</sql>
 
 	<!-- 登录 -->
-	<select id="getUserByNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="getUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from ${dbName}.dbo.DS_User
@@ -29,7 +29,7 @@
 		where id = #{userId}
 	</select>
 
-	<select id="getMobileByNumber" resultType="string" parameterType="java.lang.Integer">
+	<select id="getMobileByUserId" resultType="string" parameterType="java.lang.Integer">
 		select top 1 C_Mobile
 		from ${dbName}.dbo.DS_Contact
 		where User_ID = #{userId} and C_Mobile like '1%'
@@ -45,7 +45,7 @@
 	<update id="updateAmount" parameterType="com.alpha.common.model.DsUserBean">
 		update ${dbName}.dbo.DS_User
 		set U_Account_Total_5 = #{amount}
-		where id = #{userId}
+		where U_Number = #{userName}
 	</update>
 
 </mapper>

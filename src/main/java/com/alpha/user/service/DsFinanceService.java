@@ -1,14 +1,12 @@
-package com.alpha.common.dao;
+package com.alpha.user.service;
 
 import com.alpha.common.model.DsFinanceBean;
 
 /**
- * [OLITCVUY]和[TWN44]两个库的财务表
- * 
  * @author Li Yunfa
  * @date 2017年6月21日
  */
-public interface DsFinanceMapper {
+public interface DsFinanceService {
 
 	int insert(DsFinanceBean record);
 

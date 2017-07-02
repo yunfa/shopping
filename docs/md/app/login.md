@@ -21,8 +21,8 @@
 		"msg": "成功!",
 		"timestamp": 1498303791079,
 		"content": {
-			"userId": 888,//登录后的请求都要带上userId
-			"userName": "rpay",//用户名
+			"userId": 1,//注意在两库中就不唯一
+			"userName": "cnuser",//用户名,登录后的请求都要带上userId
 			"token": "sdafksj2342k34jk",//登录后的请求都要带上token，以校验用户登录
 			"rhAccount": 88.88 //rh账户金额
 		}

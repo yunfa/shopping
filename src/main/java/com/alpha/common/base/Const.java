@@ -1,6 +1,7 @@
 package com.alpha.common.base;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import com.alpha.common.utils.DateUtil;
 import com.alpha.core.config.IConfig;
@@ -75,7 +76,7 @@ public class Const {
 	public static final String DOMAIN_CDN = IConfig.get("domain.cdn");
 	// 版本号，重启的时间
 
-	public static String VERSION = DateUtil.dateToStringWithTime();
+	public static String VERSION = DateUtil.formatString(new Date(), DateUtil.FMT_DATE_TIMES_PATTERN);
 
 	// 存储到缓存，标识用户的禁止状态，解决在线用户踢出的问题
 	final public static String EXECUTE_CHANGE_USER = "alpha_EXECUTE_CHANGE_USER";

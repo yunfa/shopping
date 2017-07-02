@@ -51,9 +51,7 @@ public class SampleRealm extends AuthorizingRealm {
 		UserBean user = userService.login(token.getUsername(), token.getPswd());
 		if (null == user) {
 			throw new AccountException("帐号或密码不正确！");
-			/**
-			 * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
-			 */
+			// 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
 		} else if (Const._0.equals(user.getStatus())) {
 			throw new DisabledAccountException("帐号已经禁止登录！");
 		} else {

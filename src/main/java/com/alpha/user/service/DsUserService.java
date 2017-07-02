@@ -1,5 +1,7 @@
 package com.alpha.user.service;
 
+import java.math.BigDecimal;
+
 import com.alpha.common.base.BusException;
 import com.alpha.common.model.DsUserBean;
 
@@ -15,4 +17,7 @@ public interface DsUserService {
 
 	boolean updatePwd(String userName, String userPwd, String verifyCode) throws BusException;
 
+	boolean updateAmount(String userName, BigDecimal amount);
+
+	DsUserBean getUserByName(String userName);
 }
