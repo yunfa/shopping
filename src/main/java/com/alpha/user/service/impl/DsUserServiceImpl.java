@@ -134,7 +134,7 @@ public class DsUserServiceImpl extends BaseMybatisDao<DsUserMapper> implements D
 
 	private boolean sendVerifyCode(String mobile) {
 		String code = MathUtil.getRandom(4);
-		if ("dev".equals(propertiesService.getEnv())) {
+		if ("dev".equals(propertiesService.getEnv()) || "test".equals(propertiesService.getEnv())) {
 			code = "0000";
 		}
 		logger.info("verify code:{}", code);
